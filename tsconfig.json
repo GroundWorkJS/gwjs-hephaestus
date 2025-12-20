@@ -1,0 +1,46 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": ".",
+        "composite": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "jsx": "react-jsx",
+        "lib": [
+            "ES2022",
+            "DOM"
+        ],
+        "moduleResolution": "Bundler",
+        "baseUrl": ".",
+        "paths": {
+            // ============================================================
+            // SECURITY: ONLY allow imports from plugin-sdk
+            // ============================================================
+            "@groundworkjs/plugin-sdk": [
+                "../plugin-sdk/src"
+            ],
+            // BLOCKED: Prevent tenant from importing core packages
+            "@groundworkjs/db": ["../BLOCKED-CORE-PACKAGE"],
+            "@groundworkjs/database": ["../BLOCKED-CORE-PACKAGE"],
+            "@groundworkjs/backend": ["../BLOCKED-CORE-PACKAGE"],
+            "@groundworkjs/frontend": ["../BLOCKED-CORE-PACKAGE"],
+            "@groundworkjs/shared": ["../BLOCKED-CORE-PACKAGE"],
+            "@groundworkjs/types": ["../BLOCKED-CORE-PACKAGE"]
+        }
+    },
+    "include": [
+        "manifest.ts",
+        "types/**/*.d.ts",
+        "frontend/**/*.ts",
+        "frontend/**/*.tsx",
+        "frontend/**/*.d.ts",
+        "backend/**/*.ts",
+        "backend/**/*.d.ts"
+    ],
+    "references": [
+        {
+            "path": "../plugin-sdk"
+        }
+    ]
+}

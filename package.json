@@ -1,0 +1,47 @@
+{
+  "name": "@groundworkjs/tenant",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "frontend/public"
+  ],
+  "exports": {
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "default": "./dist/manifest.js"
+    },
+    "./frontend/routes": {
+      "types": "./dist/frontend/routes.d.ts",
+      "default": "./dist/frontend/routes.js"
+    },
+    "./backend/router": {
+      "types": "./dist/backend/router.d.ts",
+      "default": "./dist/backend/router.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -b -w",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "peerDependencies": {
+    "@groundworkjs/db": "workspace:*",
+    "@groundworkjs/plugin-sdk": "workspace:*",
+    "@groundworkjs/types": "workspace:*",
+    "next": "15.3.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "@mui/material": "7.1.1",
+    "express": "4.18.2"
+  },
+  "devDependencies": {
+    "typescript": "5.7.2",
+    "@types/express": "4.17.21",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5"
+  }
+}

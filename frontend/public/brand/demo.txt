@@ -1,0 +1,1 @@
+If you can read this at /o/assets/brand/demo.txt, tenant assets are working. 🎉

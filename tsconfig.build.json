@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "backend",
+    "outDir": "dist/backend",
+    "declaration": true,
+    "sourceMap": true,
+    "composite": false,
+    "module": "CommonJS",
+    "target": "ES2019",
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["backend/**/*"]
+}
