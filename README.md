@@ -1,10 +1,10 @@
 <div align="center">
   <img src="https://groundworkjs.com/assets/logo.png" alt="GroundWorkJS" width="400" />
-  
+
   # GroundWorkJS Customization Starter
-  
+
   **Customize and extend your GroundWorkJS instance** with custom pages, API routes, and business logic.
-  
+
   [Website](https://groundworkjs.com/) • [Documentation](https://groundworkjs.com/docs) • [Support](https://groundworkjs.com/support)
 </div>
 
@@ -15,7 +15,7 @@
 This is your **customization workspace** for GroundWorkJS. Add your organization's unique features:
 
 - **Custom Pages**: Build React components for your workflows
-- **Custom APIs**: Create backend routes for your business logic  
+- **Custom APIs**: Create backend routes for your business logic
 - **Custom Data**: Define database tables for your application
 - **Full TypeScript**: Type-safe development with excellent IDE support
 
@@ -74,7 +74,7 @@ Your code will fail to build if you try to import from platform internals.
 ## 📁 Project Structure
 
 ```
-packages/tenant/
+gwjs-hephaestus/
 ├── README.md                 # This file
 ├── manifest.ts               # Your customization metadata
 ├── package.json
@@ -113,7 +113,9 @@ pnpm install
 
 # Or use npm/yarn
 npm install
-```Local Development Environment
+```
+
+### 2. Set Up Local Development Environment
 
 > ⚠️ **IMPORTANT**: This step is **ONLY for local development/testing**. In production, your GroundWorkJS administrator handles all database configuration automatically. You don't need to worry about databases when deploying.
 
@@ -131,6 +133,14 @@ DATABASE_URL=postgresql://user:pass@localhost:5432/your_instance
 TENANT_DATABASE_URL=postgresql://user:pass@localhost:5432/your_instance_tenant
 
 # Enable customization features
+TENANT_ENABLED=1
+TENANT_STATE=active
+```
+
+**Don't have database credentials?** Contact your GroundWorkJS administrator - they'll provide everything you need for local testing.
+
+### 3. Run Database Migrations
+
 > 📝 **What are migrations?** They're scripts that create your custom database tables. Think of them as setup scripts for your data.
 
 ```bash
@@ -141,8 +151,12 @@ pnpm db:migrate
 pnpm db:seed
 ```
 
-> ⚠️ **Production Note**: When you deploy, your administrator runs migrations for you. You just write them here and they handle the rest.
-matically rebuilds when you save files)
+> ⚠️ **Production Note**: When you deploy, migrations run automatically. You just write them here and the platform handles the rest.
+
+### 4. Start Development
+
+```bash
+# Start in watch mode (automatically rebuilds when you save files)
 pnpm dev
 
 # Or build once (when you're ready to test)
@@ -157,15 +171,9 @@ pnpm build
 
 > 📍 **In production**, replace `localhost` with your actual GroundWorkJS instance URL (e.g., `https://yourcompany.groundworkjs.com`)
 
-### 4. Start Development
+---
 
-```bash
-# Start in watch mode (auto-rebuild on changes)
-pnpm dev
-
-# Or build once
-pnpm build
-```
+## 🛠️ Development Guide
 
 > 💡 **Beginner Tip**: Start by modifying the example files, then create your own once you understand the patterns.
 
@@ -178,14 +186,6 @@ pnpm build
 4. Test it by visiting `http://localhost:4000/o/api/your-route`
 
 **Example code:**
-
----
-
-## 🛠️ Development Guide
-
-### Adding Custom API Endpoints
-
-Edit [backend/router.ts](backend/router.ts) to add your routes:
 
 ```typescript
 import type { TenantDependencies, TenantRouterFactory } from '@groundworkjs/plugin-sdk';
@@ -208,11 +208,10 @@ const createTenantRouter: TenantRouterFactory = (deps) => {
 
   // Protected endpoint (requires authentication)
   router.get('/my-data', requireAuth, asyncHandler(async (req, res) => {
-    const user = req.user; // User guaranteed to exist (requireAuth middleware)
+    const user = req.user; // User guaranteed to exist
 
     logger.info('Fetching user data', { userId: user.id });
 
-    // Query YOUR tenant tables (only tenant_* tables allowed)
     const data = await db.table('tenant_posts')
       .where('user_id', user.id)
       .select();
@@ -230,25 +229,15 @@ const createTenantRouter: TenantRouterFactory = (deps) => {
     }
 
     const [post] = await db.table('tenant_posts').insert({
-  Understanding the URLs:**
-- When you write `router.get('/hello', ...)` → Users access it at `/o/api/hello`
-- When you write `router.post('/posts', ...)` → Users access it at `/o/api/posts`
-
-> 💡 **The `/o/api` part is added automatically** - you just define the route name!
+      title,
+      content,
+      user_id: user.id,
       created_at: new Date(),
     }).returning('*');
 
     logger.audit('Post created', { userId: user.id, postId: post.id });
     sendSuccess(res, { post });
-> 💡 **What's React?** It's a framework for building user interfaces. If you're new, think of it like HTML with superpowers.
-
-**Step-by-step:**
-1. Create a new file in [frontend/pages/](frontend/pages/) (e.g., `MyPage.tsx`)
-2. Copy the example below and customize it
-3. Register the route (see step 2)
-4. Visit `http://localhost:3000/custom/my-page`
-
-**Example page:**
+  }));
 
   return router;
 };
@@ -256,13 +245,19 @@ const createTenantRouter: TenantRouterFactory = (deps) => {
 export default createTenantRouter;
 ```
 
-**API URLs**: Your routes are mounted at `/o/api/*`
-- `GET /o/api/hello` → `router.get('/hello', ...)`
-- `POST /o/api/posts` → `router.post('/posts', ...)`
+**Understanding the URLs:**
+- When you write `router.get('/hello', ...)` → Users access it at `/o/api/hello`
+- When you write `router.post('/posts', ...)` → Users access it at `/o/api/posts`
+
+> 💡 **The `/o/api` part is added automatically** - you just define the route name!
 
 ### Adding Custom Frontend Pages
 
-1. **Create React Component** ([frontend/pages/MyPage.tsx](frontend/pages/MyPage.tsx)):
+> 💡 **What's React?** It's a framework for building user interfaces. If you're new, think of it like HTML with superpowers.
+
+**Step 1: Create a new page**
+
+Create a new file in [frontend/pages/](frontend/pages/) (e.g., `MyPage.tsx`):
 
 ```typescript
 import React from 'react';
@@ -270,6 +265,28 @@ import { Box, Typography, Button } from '@mui/material';
 
 const MyCustomPage: React.FC = () => {
   const [data, setData] = React.useState(null);
+
+  const fetchData = async () => {
+    const res = await fetch('/o/api/my-data', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    const json = await res.json();
+    setData(json.data);
+  };
+
+  return (
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h4">My Custom Page</Typography>
+      <Button onClick={fetchData}>Load Data</Button>
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+    </Box>
+  );
+};
+
+export default MyCustomPage;
+```
 
 **Step 2: Register your page**
 
@@ -286,7 +303,9 @@ export const additivePages: Record<string, string> = {
 
 **Step 3: Test it**
 
-VisiWorking with Your Database
+Visit `http://localhost:3000/custom/my-page` in your browser!
+
+### Working with Your Database
 
 > 💡 **Database 101**: Your custom data needs tables (like spreadsheet tabs). Migrations are scripts that create these tables.
 
@@ -302,7 +321,17 @@ VisiWorking with Your Database
 # This creates a new migration file for you
 pnpm db:make-migration create_posts_table
 ```
-// This creates your table
+
+**Step 2: Edit the migration file**
+
+Find the new file in [database/db/migrations/](database/db/migrations/) and edit it:
+
+```javascript
+/**
+ * @param {import('knex').Knex} knex
+ */
+exports.up = async function(knex) {
+  // This creates your table
   await knex.schema.createTable('tenant_posts', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));  // Unique ID
     table.string('title', 255).notNullable();  // Post title (required)
@@ -333,43 +362,13 @@ exports.down = async function(knex) {
 pnpm db:migrate
 ```
 
-> ⚠️Querying Your Database
+> ⚠️ **In production**: Migrations run automatically when you deploy. You don't run them yourself!
+
+### Querying Your Database
 
 > 💡 **What's a query?** It's how you ask the database for data (like asking "show me all posts").
 
 **The basics:**
-```
-
-**Migration Example** ([database/db/migrations/20241220120000_create_posts.js](database/db/migrations/)):
-```javascript
-/**
- * @param {import('knex').Knex} knex
- */
-exports.up = async function(knex) {
-  await knex.schema.createTable('tenant_posts', (table) => {
-    table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-    table.string('title', 255).notNullable();
-    table.text('content');
-    table.uuid('user_id').notNullable();
-    table.timestamps(true, true);
-    table.index(['user_id']);
-  });
-};
-
-/**
- * @param {import('knex').Knex} knex
- */
-exports.down = async function(knex) {
-  await knex.schema.dropTable('tenant_posts');
-};
-```
-
-**Run Migration**:
-```bash
-pnpm db:migrate
-```
-
-### Using the Database SDK
 
 ```typescript
 import type { TenantDatabase } from '@groundworkjs/plugin-sdk';
@@ -471,90 +470,81 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
 
 ---
 
-## 📚 SDK Reference
+## 📦 Deploying to Production
 
-### Database (`TenantDatabase`)
+> ✅ **GOOD NEWS**: You can deploy your customizations yourself through the GroundWorkJS platform! No waiting for approvals.
 
-```typescript
-interface TenantDatabase {
-  // Get query builder for a tenant table
-  table(tableName: string): Knex.QueryBuilder;
+### Quick Deploy (Recommended)
 
-  // Count records in a tenant table
-  count(tableName: string): Promise<number>;
-
-  // Execute raw SQL (with security validation)
-  raw(sql: string, bindings?: any[]): Promise<any>;
-
-  // Check if database is available
-  isAvailable: boolean;
-}
+**Step 1: Push your code to GitHub**
+```bash
+git add .
+git commit -m "Added my awesome customizations"
+git push
 ```
 
-**Table Name Rules**:
-- MUST start with `tenant_`
-- MUST be lowercase
-- MUST match pattern: `/^tenant_[a-z0-9_]+$/`
+**Step 2: Deploy through the Platform**
 
-### Authentication Helpers
+1. Log into your GroundWorkJS instance
+2. Go to **Admin → Tenant Customizations** (or **Tenant → Deployment**)
+3. Click **"Deploy Customizations"** or **"New Deployment"**
+4. The platform will:
+   - ✅ Pull your latest code from GitHub
+   - ✅ Validate your code for security issues
+   - ✅ Run your database migrations automatically
+   - ✅ Build and deploy your customizations
+   - ✅ Restart services if needed
 
-```typescript
-// Get user from request (returns undefined if not authenticated)
-import { getTenantUser } from '@groundworkjs/plugin-sdk';
-const user = getTenantUser(req);
-if (!user) {
-  return sendError(res, 401, 'Unauthorized');
-}
+5. Watch the deployment progress in real-time
+6. Done! Your customizations are live 🎉
 
-// Require authentication (middleware)
-import { requireAuth } from '@groundworkjs/plugin-sdk';
-router.get('/protected', requireAuth, (req, res) => {
-  const user = req.user; // Guaranteed to exist
-});
+> 💡 **How long does it take?** Usually 2-5 minutes depending on your code size.
 
-// Get user ID safely
-import { getUserId } from '@groundworkjs/plugin-sdk';
-const userId = getUserId(req); // Returns string | undefined
+### Before You Deploy: Pre-Flight Checklist
 
-// Check if user is authenticated
-import { isAuthenticated } from '@groundworkjs/plugin-sdk';
-if (!isAuthenticated(req)) {
-  return sendError(res, 401, 'Unauthorized');
-}
+Make sure these work locally first:
+
+```bash
+# 1. Build succeeds
+pnpm build
+
+# 2. No errors
+pnpm validate
+
+# 3. Test your endpoints
+curl http://localhost:4000/o/api/your-route
+
+# 4. Test your pages
+# Visit http://localhost:3000/custom/your-page
 ```
 
-### Logging (`TenantLogger`)
+**Checklist:**
+- [ ] All tables prefixed with `tenant_`
+- [ ] Only importing from `@groundworkjs/plugin-sdk`
+- [ ] Build succeeds without errors
+- [ ] All migrations tested locally
+- [ ] API endpoints work as expected
+- [ ] Frontend pages load correctly
+- [ ] Authentication on sensitive routes
+- [ ] Input validation on forms
+- [ ] Error handling in place
+- [ ] Code pushed to GitHub
 
-```typescript
-interface TenantLogger {
-  info(message: string, context?: Record<string, any>): void;
-  error(message: string, error?: Error, context?: Record<string, any>): void;
-  debug(message: string, context?: Record<string, any>): void;
-  warn(message: string, context?: Record<string, any>): void;
-  audit(message: string, context?: Record<string, any>): void; // Always persists
-}
-```
+### Alternative: Manual Deployment Support
 
-### Route Helpers
+> 💰 **Premium Support Option**: If your organization has purchased additional support, your GroundWorkJS administrator can handle deployments for you with code review included.
 
-```typescript
-// Async error handler (wraps async route handlers)
-import { asyncHandler } from '@groundworkjs/plugin-sdk';
-router.get('/data', asyncHandler(async (req, res) => {
-  const data = await db.table('tenant_data').select();
-  sendSuccess(res, { data });
-}));
+Contact your administrator if you need:
+- Pre-deployment code reviews
+- Help troubleshooting deployment issues
+- Assistance with complex migrations
+- Training on best practices
 
-// JSON success response
-import { sendSuccess } from '@groundworkjs/plugin-sdk';
-sendSuccess(res, { data: [...] }, 200); // status code optional
+Otherwise, the self-service deployment system is ready for you! 🚀
 
-// JSON error response
-import { sendError } from '@groundworkjs/plugin-sdk';
-sendError(res, 404, 'Not found', { details: 'Item not in database' });
+---
 
-// Body validation helper
-import { validateBo & Solutions
+## 🚨 Common Issues & Solutions
 
 > 💡 **Stuck?** Check here first before asking for help!
 
@@ -586,100 +576,38 @@ await db.table('tenant_posts');
 import { db } from '@groundworkjs/db';
 
 // ✅ Correct - use the SDK
-import type ing to Production
-
-> ⚠️ **IMPORTANT**: You don't deploy yourself! Your GroundWorkJS administrator handles all production deployments.
-
-### Step 1: Build Your Code
-
-```bash
-# Build your customizations (makes sure everything works)
-pnpm build
-
-# This creates a dist/ folder with your compiled code
-```
-
-> 💡 **Why build?** It compiles your TypeScript to JavaScript and checks for errors.
-
-### Step 2: Push to GitHub
-
-```bash
-git add .
-git commit -m "Added my customizations"
-git push
-```
-
-### Step 3: Contact Your Administrator
-
-Send them a message like:
-
-> "Hi! I've pushed my customizations to GitHub. Can you deploy them to production? I've tested everything locally and it works great. Let me know if you need anything!"
-
-**They will handle:**
-- ✅ Reviewing your code for any issues
-- ✅ Running your database migrations safely
-- ✅ Deploying your code to production
-- ✅ Restarting the instance
-- ✅ Making sure everything works
-
-> 💡 **You never touch production directly** - this keeps your instance stable and secure!NLY for local development. In production, everything is automatic!
-
-// Require permission (middleware)
-router.delete('/post/:id', requirePermission('delete_posts'), (req, res) => {
-  // User guaranteed to have permission
-});
-```
-
----
-
-## 🚨 Common Issues
-
-### "Access denied to table X"
-**Solution**: Only query tables prefixed with `tenant_`
-
-```typescript
-// ❌ Wrong
-await db.table('my_posts');
-
-// ✅ Correct
-await db.table('tenant_posts');
-```
-
-### "Module has no exported member"
-**Solution**: Only import from `@groundworkjs/plugin-sdk`
-
-```typescript
-// ❌ Wrong  
-import { db } from '@groundworkjs/db';
-
-// ✅ Correct
 import type { TenantDependencies } from '@groundworkjs/plugin-sdk';
-// db is provided via deps parameter
+// The `db` is provided to you automatically
 ```
 
-### "Database not available"
-**Solution**: Check your `.env` file has `TENANT_DATABASE_URL` configured
+**Why:** You can only use the official SDK. This keeps your code stable when GroundWorkJS updates.
 
 ---
 
-## 📦 Deployment
+### ❌ "Database not available"
 
-### Production Build
+**What happened:** Your `.env` file is missing or incorrect.
 
-```bash
-# Build your customizations
-pnpm build
+**The fix:**
+1. Make sure you have a `.env` file in the root directory
+2. Ask your GroundWorkJS administrator for the correct `TENANT_DATABASE_URL`
+3. Copy their value into your `.env` file
 
-# Output will be in dist/
-```
+**Remember:** This is ONLY for local development. In production, everything is automatic!
 
-### Deploy to Your Instance
+---
 
-Contact your GWJS administrator to deploy your customizations. They will:
-1. Review your code
-2. Run your database migrations  
-3. Deploy your custom code
-4. Restart the instance
+### ❌ "Deployment failed"
+
+**What happened:** The deployment system found an issue with your code.
+
+**The fix:**
+1. Check the deployment logs in the platform UI
+2. Common issues:
+   - Build errors (run `pnpm build` locally first)
+   - Migration errors (test with `pnpm db:migrate` locally)
+   - Import violations (run `pnpm validate`)
+3. Fix the issue, commit, push, and deploy again
 
 ---
 
@@ -849,36 +777,9 @@ router.post('/blog/posts', requireAuth, asyncHandler(async (req, res) => {
 // Add comment
 router.post('/blog/posts/:postId/comments', requireAuth, asyncHandler(async (req, res) => {
   const { postId } = req.params;
-  consGetting Help
+  const { content } = req.body;
 
-### Your GroundWorkJS Administrator
-Your first point of contact! They can help with:
-- Database connection issues
-- Deployment questions
-<div align="center">
-
-**Happy building!** 🚀
-
-Customize GroundWorkJS to fit your organization's unique needs.
-
-[GroundWorkJS](https://groundworkjs.com/) | Made with ❤️ for businesses that need customization
-
-</div>
-### Official Resources
-- 🌐 [GroundWorkJS Website](https://groundworkjs.com/)
-- 📖 [Full Documentation](https://groundworkjs.com/docs)
-- 💬 [Support Center](https://groundworkjs.com/support)
-
-### Before Asking for Help
-1. ✅ Check the [Common Issues](#-common-issues--solutions) section above
-2. ✅ Make sure you ran `pnpm install` and `pnpm build`
-3. ✅ Check your `.env` file has the correct values
-4. ✅ Try the example code first before writing your own
-
-When you do ask for help, include:
-- What you were trying to do
-- What error message you got (copy/paste the exact error)
-- What you've already tried
+  const [comment] = await db.table('tenant_blog_comments')
     .insert({
       post_id: postId,
       user_id: req.user.id,
@@ -929,27 +830,39 @@ export const additivePages = {
 
 ---
 
-## ✅ Pre-Deployment Checklist
+## 🤝 Getting Help
 
-- [ ] All tables prefixed with `tenant_`
-- [ ] Only importing from `@groundworkjs/plugin-sdk`
-- [ ] Build succeeds: `pnpm build`
-- [ ] Migrations tested: `pnpm db:migrate`
-- [ ] API endpoints tested
-- [ ] Frontend pages load correctly
-- [ ] Authentication required on sensitive routes
-- [ ] Input validation on POST/PUT endpoints
-- [ ] Error handling in async operations
-- [ ] No sensitive data in logs
+### Your GroundWorkJS Administrator
+Your first point of contact! They can help with:
+- Database connection issues
+- Deployment questions
+- Instance configuration
+- General "how do I...?" questions
+
+### Official Resources
+- 🌐 [GroundWorkJS Website](https://groundworkjs.com/)
+- 📖 [Full Documentation](https://groundworkjs.com/docs)
+- 💬 [Support Center](https://groundworkjs.com/support)
+
+### Before Asking for Help
+1. ✅ Check the [Common Issues](#-common-issues--solutions) section above
+2. ✅ Make sure you ran `pnpm install` and `pnpm build`
+3. ✅ Check your `.env` file has the correct values
+4. ✅ Try the example code first before writing your own
+
+When you do ask for help, include:
+- What you were trying to do
+- What error message you got (copy/paste the exact error)
+- What you've already tried
 
 ---
 
-## 🤝 Support
-
-Need help? Contact your GWJS administrator or check the [platform documentation](#).
-
----
+<div align="center">
 
 **Happy building!** 🚀
 
-Customize GWJS to fit your organization's unique needs.
+Customize GroundWorkJS to fit your organization's unique needs.
+
+[GroundWorkJS](https://groundworkjs.com/) | Made with ❤️ for businesses that need customization
+
+</div>
