@@ -487,18 +487,61 @@ git push
 
 1. Log into your GroundWorkJS instance
 2. Go to **Admin → Tenant Customizations** (or **Tenant → Deployment**)
-3. Click **"Deploy Customizations"** or **"New Deployment"**
-4. The platform will:
+3. **Configure your repository** (first time only):
+   - **Repository URL**: Your GitHub repo URL (e.g., `https://github.com/yourorg/your-customizations.git`)
+   - **Repository Type**: 
+     - Select **Public** if your repo is public (no extra setup needed)
+     - Select **Private** if your repo is private (see Private Repository Setup below)
+   - **Git Branch/Ref**: Usually `main` or `master`
+   
+4. Click **"Deploy Customizations"** or **"New Deployment"**
+5. The platform will:
    - ✅ Pull your latest code from GitHub
    - ✅ Validate your code for security issues
    - ✅ Run your database migrations automatically
    - ✅ Build and deploy your customizations
    - ✅ Restart services if needed
 
-5. Watch the deployment progress in real-time
-6. Done! Your customizations are live 🎉
+6. Watch the deployment progress in real-time
+7. Done! Your customizations are live 🎉
 
 > 💡 **How long does it take?** Usually 2-5 minutes depending on your code size.
+
+### Private Repository Setup
+
+If your repository is private, you need to provide a GitHub Personal Access Token:
+
+**Step 1: Create a GitHub Personal Access Token (PAT)**
+
+1. Go to **GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens**
+2. Click **"Generate new token"**
+3. Configure the token:
+   - **Name**: `GroundWorkJS Deployment`
+   - **Expiration**: Choose your preference (we recommend 1 year)
+   - **Repository access**: Select "Only select repositories" → Choose your customization repo
+   - **Permissions**:
+     - **Repository permissions → Contents**: `Read-only` (this is all you need!)
+4. Click **"Generate token"**
+5. **Copy the token immediately** - you won't be able to see it again!
+
+**Step 2: Add Token to GroundWorkJS**
+
+1. In your GroundWorkJS instance, go to **Admin → Tenant Customizations**
+2. Set **Repository Type** to **Private**
+3. Paste your GitHub token in the **GitHub Access Token** field
+4. Click **Save**
+
+> 🔒 **Security Note**: Your token is encrypted and stored securely. It's never displayed in the UI after saving. Your developers don't need access to this token - it's managed by your instance administrator only.
+
+**Token Rotation**
+
+To update your token (e.g., if compromised or expired):
+1. Generate a new token on GitHub (same steps as above)
+2. Go to **Admin → Tenant Customizations**
+3. Enter the new token in **GitHub Access Token**
+4. Click **Save**
+
+The old token is immediately replaced. No downtime!
 
 ### Before You Deploy: Pre-Flight Checklist
 
