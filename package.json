@@ -27,10 +27,12 @@
     "dev": "tsc -b -w",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
-  "peerDependencies": {
+  "dependencies": {
     "@groundworkjs/db": "workspace:*",
     "@groundworkjs/plugin-sdk": "workspace:*",
-    "@groundworkjs/types": "workspace:*",
+    "@groundworkjs/types": "workspace:*"
+  },
+  "peerDependencies": {
     "next": "15.3.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",

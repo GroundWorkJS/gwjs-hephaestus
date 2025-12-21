@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react';
 
-export default function HelloPage(): ReactElement {
+export default function TacoPage(): ReactElement {
     return (
         <div style={{ padding: 24 }}>
-            <h1>👋 Hello from tenant!!!</h1>
+            <h1>🌮 Taco Page</h1>
             <p>
-                Whats new in the world?!
+                Eat all the tacos!!!
             </p>
         </div>
     );
