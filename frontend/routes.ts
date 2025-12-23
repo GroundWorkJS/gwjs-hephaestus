@@ -9,4 +9,7 @@ export type TenantRouteMap = Record<RoutePath, string>;
 export const additivePages: TenantRouteMap = {
   '/o/hello': 'HelloPage',
   '/o/taco': 'TacoPage',
+  '/o/contact': 'ContactPage',
+  '/o/about': 'AboutPage',
+  '/o/admin/messages': 'AdminMessagesPage',
 };
