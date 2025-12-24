@@ -7,6 +7,10 @@ export type TenantRouteMap = Record<RoutePath, string>;
  * The host app will resolve names via @gwjs/tenant-pages/* using webpack context.
  */
 export const additivePages: TenantRouteMap = {
+  '/o/home': 'HomePage',
+  '/o/features': 'FeaturesPage',
+  '/o/security': 'SecurityPage',
+  '/o/pricing': 'PricingPage',
   '/o/hello': 'HelloPage',
   '/o/taco': 'TacoPage',
   '/o/contact': 'ContactPage',
