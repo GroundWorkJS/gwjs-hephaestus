@@ -1,9 +1,6 @@
 {
-    "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": ".",
-        "composite": true,
         "declaration": true,
         "skipLibCheck": true,
         "jsx": "react-jsx",
@@ -11,7 +8,14 @@
             "ES2022",
             "DOM"
         ],
-        "moduleResolution": "Bundler",
+        "target": "ES2021",
+        "module": "ESNext",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
         "baseUrl": ".",
         "paths": {
             // ============================================================
@@ -37,10 +41,5 @@
         "frontend/**/*.d.ts",
         "backend/**/*.ts",
         "backend/**/*.d.ts"
-    ],
-    "references": [
-        {
-            "path": "../plugin-sdk"
-        }
     ]
 }

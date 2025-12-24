@@ -1,0 +1,96 @@
+# Tenant Customization License
+
+Copyright © 2024-2025 [Your Organization Name]. All rights reserved.
+
+## Your Tenant Customizations
+
+The code in this repository represents your tenant customizations built on the GroundWorkJS platform using the @groundworkjs/plugin-sdk.
+
+### Your Rights
+
+You own the intellectual property rights to your customizations, subject to:
+
+1. **Platform License**: You have a license to use GroundWorkJS platform
+2. **Runtime License**: GroundWorkJS is licensed to run your customizations
+3. **SDK Usage**: Your code uses @groundworkjs/plugin-sdk (proprietary)
+
+### GroundWorkJS Platform
+
+The underlying GroundWorkJS platform is proprietary software owned by GroundWorkJS:
+
+- **Platform Source Code**: Proprietary, not included in this repository
+- **@groundworkjs/plugin-sdk**: Proprietary, licensed for tenant development
+- **Platform Database**: Not accessible, platform-managed
+
+### Your Obligations
+
+By deploying customizations on GroundWorkJS, you agree to:
+
+- **Performance**: Maintain code quality and performance standards
+- **Security**: Follow security best practices, no malicious code
+- **Compliance**: Adhere to data protection regulations (GDPR, CCPA, etc.)
+- **Terms**: Comply with your GroundWorkJS subscription agreement
+
+### Restrictions
+
+You may NOT:
+
+- **Reverse Engineer**: Decompile or reverse engineer the platform
+- **Redistribute SDK**: Share @groundworkjs/plugin-sdk with non-customers
+- **Bypass Security**: Attempt to access platform internals
+- **Create Derivatives**: Create competing platforms using GroundWorkJS
+- **Share Across Tenants**: Distribute your customizations to other tenants without written permission
+
+### Open Source Components
+
+This project may include open-source dependencies. See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for attribution.
+
+### Sharing Your Work
+
+If you wish to:
+
+- **Open source your customizations**: Contact GroundWorkJS legal team
+- **Share with other tenants**: Requires marketplace agreement
+- **Create commercial plugins**: Requires partnership agreement
+
+Contact: <licensing@groundworkjs.com>
+
+### Warranty Disclaimer
+
+YOUR CUSTOMIZATIONS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. GROUNDWORKJS MAKES NO WARRANTIES ABOUT YOUR CUSTOMIZATIONS.
+
+### Data Protection
+
+You are the data controller for data processed by your customizations. You must:
+
+- Implement appropriate security measures
+- Comply with privacy regulations
+- Notify users of data collection/processing
+- Handle data breaches according to law
+
+### Support
+
+- **Platform Support**: Provided by GroundWorkJS per your subscription
+- **Your Customizations**: You are responsible for supporting your code
+- **SDK Issues**: Report to <support@groundworkjs.com>
+
+### Termination
+
+Upon termination of your GroundWorkJS subscription:
+
+- Your tenant instance will be deactivated
+- You retain rights to your customization code
+- You must cease using GroundWorkJS platform and SDK
+- You may export your customization code (not platform data)
+
+### Governing Law
+
+[Specify your jurisdiction]
+
+---
+
+**Note**: This is a template. Consult with legal counsel to ensure it meets your needs.
+
+For GroundWorkJS platform licensing questions: <licensing@groundworkjs.com>
+
+Last Updated: December 24, 2025

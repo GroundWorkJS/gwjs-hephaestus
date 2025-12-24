@@ -28,16 +28,13 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
-    "@groundworkjs/db": "workspace:*",
     "@groundworkjs/plugin-sdk": "workspace:*",
-    "@groundworkjs/types": "workspace:*"
-  },
-  "peerDependencies": {
-    "next": "15.3.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "@mui/material": "7.1.1",
-    "express": "4.18.2"
+    "@mui/icons-material": "7.1.1",
+    "express": "4.18.2",
+    "next": "15.3.3"
   },
   "devDependencies": {
     "typescript": "5.7.2",

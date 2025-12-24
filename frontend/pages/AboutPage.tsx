@@ -7,10 +7,10 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
   Card,
   CardContent,
 } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import React from 'react';
 
 const AboutPage = () => {
@@ -48,7 +48,7 @@ const AboutPage = () => {
           Key Features
         </Typography>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
                 <Box textAlign="center">
@@ -65,7 +65,7 @@ const AboutPage = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
                 <Box textAlign="center">
@@ -82,7 +82,7 @@ const AboutPage = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
                 <Box textAlign="center">
