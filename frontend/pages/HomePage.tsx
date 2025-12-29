@@ -41,7 +41,7 @@ export const HomePage: React.FC = () => {
                 textShadow: '0 2px 10px rgba(0,0,0,0.2)',
               }}
             >
-              Enterprise-Grade SaaS Infrastructure
+              Multi-Tenant SaaS Platform
             </Typography>
             <Typography
               variant="h5"
@@ -53,8 +53,8 @@ export const HomePage: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              Deploy production-ready, compliant applications in minutes—not months.
-              Built for developers, trusted by enterprises.
+              A foundation for building secure, compliant SaaS applications.
+              Open source with enterprise features available.
             </Typography>
 
             {/* Compliance Badges */}
@@ -117,7 +117,7 @@ export const HomePage: React.FC = () => {
               <Button
                 variant="contained"
                 size="large"
-                href="https://groundworkjs.com/?xref=tenant-demo-hero"
+                href={`https://groundworkjs.com/?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
@@ -135,7 +135,7 @@ export const HomePage: React.FC = () => {
                   transition: 'all 0.3s ease',
                 }}
               >
-                Get Started Free
+                Learn More
               </Button>
               <Button
                 variant="outlined"
@@ -181,11 +181,11 @@ export const HomePage: React.FC = () => {
       <Container maxWidth="lg" sx={{ py: 10 }}>
         <Box textAlign="center" mb={8}>
           <Typography variant="h2" gutterBottom sx={{ fontWeight: 700 }}>
-            Zero Security Debt. Out of the Box.
+            Built with Security in Mind
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto' }}>
-            Stop building infrastructure. Start shipping features. Every instance comes
-            pre-configured with enterprise security, compliance automation, and scalability.
+            A platform designed with security, compliance, and multi-tenancy as core principles.
+            Suitable for building SaaS applications with data isolation requirements.
           </Typography>
         </Box>
 
@@ -207,18 +207,17 @@ export const HomePage: React.FC = () => {
             },
             {
               icon: <SpeedIcon sx={{ fontSize: 50, color: '#f093fb' }} />,
-              title: 'Production-Ready in 5 Minutes',
+              title: 'Streamlined Development',
               description:
-                'One command deploys a fully configured environment: PostgreSQL, Redis, SSL certificates, CI/CD pipelines, and monitoring dashboards.',
+                'Docker-based setup with PostgreSQL, Redis, and development tooling configured. Reduces initial setup time for new SaaS projects.',
               link: '/o/features',
             },
             {
               icon: <ExtensionIcon sx={{ fontSize: 50, color: '#4facfe' }} />,
-              title: 'Plugin Marketplace',
+              title: 'Extensible Architecture',
               description:
-                'Monetize your expertise. Build plugins once, deploy everywhere. Sandboxed execution ensures customer data stays secure.',
-              link: 'https://groundworkjs.com/marketplace?xref=tenant-demo-plugins',
-              external: true,
+                'Plugin SDK for extending platform functionality. Sandboxed execution environment provides isolation between tenants and plugins.',
+              link: '/o/features',
             },
             {
               icon: <MonetizationOnIcon sx={{ fontSize: 50, color: '#43e97b' }} />,
@@ -234,7 +233,7 @@ export const HomePage: React.FC = () => {
                 'Comprehensive audit logging tracks every database query, API call, and user action. Pass compliance audits with automatically generated reports.',
               link: '/o/security',
             },
-          ].map(({ icon, title, description, link, external }) => (
+          ].map(({ icon, title, description, link }) => (
             <Grid size={{ xs: 12, md: 6 }} key={title}>
               <Card
                 sx={{
@@ -273,10 +272,10 @@ export const HomePage: React.FC = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4} textAlign="center">
             {[
-              { number: '99.99%', label: 'Uptime SLA' },
-              { number: '<5min', label: 'Deployment Time' },
-              { number: '100%', label: 'Compliance Rate' },
-              { number: '$0', label: 'Security Debt' },
+              { number: 'Open', label: 'Source Core' },
+              { number: 'Multi', label: 'Tenant Ready' },
+              { number: 'Docker', label: 'Based Deploy' },
+              { number: 'MIT', label: 'Licensed' },
             ].map(({ number, label }) => (
               <Grid size={{ xs: 6, md: 3 }} key={label}>
                 <Typography
@@ -297,16 +296,16 @@ export const HomePage: React.FC = () => {
       {/* Final CTA */}
       <Container maxWidth="lg" sx={{ py: 10, textAlign: 'center' }}>
         <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
-          Ready to Ship Faster?
+          Ready to Explore?
         </Typography>
         <Typography variant="h6" color="text.secondary" paragraph>
-          Join enterprises that chose security and speed over technical debt.
+          Learn more about the platform and how it can support your SaaS application.
         </Typography>
         <Stack direction="row" spacing={3} justifyContent="center" mt={4}>
           <Button
             variant="contained"
             size="large"
-            href="https://groundworkjs.com/start?xref=tenant-demo-bottom"
+            href={`https://groundworkjs.com/?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
             target="_blank"
             rel="noopener noreferrer"
             sx={{
@@ -317,15 +316,15 @@ export const HomePage: React.FC = () => {
               fontWeight: 600,
             }}
           >
-            Start Building Now
+            Visit Main Site
           </Button>
           <Button
             variant="outlined"
             size="large"
-            href="/o/pricing"
+            href="/o/contact"
             sx={{ px: 5, py: 2, fontSize: '1.1rem', fontWeight: 600 }}
           >
-            View Pricing
+            Get in Touch
           </Button>
         </Stack>
       </Container>
