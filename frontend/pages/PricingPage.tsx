@@ -62,7 +62,7 @@ export const PricingPage: React.FC = () => {
                 mb: 2,
               }}
             >
-              Transparent Pricing. No Hidden Costs.
+              Simple, Transparent Pricing
             </Typography>
             <Typography
               variant="h5"
@@ -74,8 +74,8 @@ export const PricingPage: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              Start free with open source. Scale to enterprise when you're ready.
-              Every plan includes enterprise-grade security and compliance.
+              Start with open source. Upgrade to managed hosting when you need it.
+              All plans include security features and updates.
             </Typography>
 
             <FormControlLabel
@@ -150,12 +150,12 @@ export const PricingPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   size="large"
-                  href="https://groundworkjs.com/download?xref=tenant-demo-pricing-oss"
+                  href={`https://groundworkjs.com/download?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{ mb: 3 }}
                 >
-                  Get Started Free
+                  Download Now
                 </Button>
 
                 <Divider sx={{ my: 2 }} />
@@ -200,7 +200,7 @@ export const PricingPage: React.FC = () => {
             >
               <Chip
                 icon={<StarIcon />}
-                label="Most Popular"
+                label="Best Value"
                 sx={{
                   position: 'absolute',
                   top: -16,
@@ -214,18 +214,18 @@ export const PricingPage: React.FC = () => {
 
               <CardContent sx={{ p: 4, flex: 1 }}>
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                  Enterprise
+                  Shared VPS
                 </Typography>
                 <Typography variant="body2" color="text.secondary" paragraph>
-                  For businesses requiring compliance and SLA guarantees
+                  Managed hosting for small to medium applications
                 </Typography>
 
                 <Box my={3}>
                   <Typography variant="h3" sx={{ fontWeight: 800 }}>
-                    ${showAnnual ? Math.round(monthlyEnterprisePrice * 0.8) : monthlyEnterprisePrice}
+                    ${showAnnual ? '119' : '149'}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    per tenant / month{showAnnual && ' (billed annually)'}
+                    per month{showAnnual && ' (billed annually)'}
                   </Typography>
                 </Box>
 
@@ -233,7 +233,7 @@ export const PricingPage: React.FC = () => {
                   variant="contained"
                   fullWidth
                   size="large"
-                  href="https://groundworkjs.com/start?xref=tenant-demo-pricing-enterprise"
+                  href={`https://groundworkjs.com/pricing?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -241,27 +241,26 @@ export const PricingPage: React.FC = () => {
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   }}
                 >
-                  Start 14-Day Trial
+                  Get Started
                 </Button>
 
                 <Divider sx={{ my: 2 }} />
 
                 <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
-                  Everything in Open Source, plus:
+                  Managed hosting includes:
                 </Typography>
 
                 <List dense>
                   {[
-                    'FedRAMP, HIPAA, PCI DSS compliance',
-                    '99.99% uptime SLA',
-                    'Dedicated support (24/7)',
-                    'Managed infrastructure',
-                    'Automated backups & recovery',
-                    'Advanced security features',
-                    'Compliance reporting',
-                    'Priority bug fixes',
-                    'Custom integrations',
-                    'SOC 2 Type II certified',
+                    '2 vCPUs, 4GB RAM',
+                    '50GB SSD storage',
+                    'Shared PostgreSQL & Redis',
+                    'SSL certificates included',
+                    'Daily backups (7 days)',
+                    'Email support',
+                    'Security updates',
+                    '99.5% uptime target',
+                    'Up to 10 tenant instances',
                   ].map((feature) => (
                     <ListItem key={feature} disableGutters>
                       <ListItemIcon>
@@ -290,18 +289,18 @@ export const PricingPage: React.FC = () => {
             >
               <CardContent sx={{ p: 4, flex: 1 }}>
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                  Custom
+                  Private VPS
                 </Typography>
                 <Typography variant="body2" color="text.secondary" paragraph>
-                  For large enterprises with specific requirements
+                  Dedicated resources for production applications
                 </Typography>
 
                 <Box my={3}>
                   <Typography variant="h3" sx={{ fontWeight: 800 }}>
-                    Let's Talk
+                    ${showAnnual ? '199' : '250'}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Custom pricing & features
+                    per month{showAnnual && ' (billed annually)'}
                   </Typography>
                 </Box>
 
@@ -309,32 +308,32 @@ export const PricingPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   size="large"
-                  href="https://groundworkjs.com/contact?xref=tenant-demo-pricing-custom"
+                  href={`https://groundworkjs.com/pricing?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{ mb: 3 }}
                 >
-                  Contact Sales
+                  Get Started
                 </Button>
 
                 <Divider sx={{ my: 2 }} />
 
                 <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
-                  Everything in Enterprise, plus:
+                  Everything in Shared VPS, plus:
                 </Typography>
 
                 <List dense>
                   {[
-                    'On-premise deployment',
-                    'Air-gapped environments',
-                    'Custom compliance requirements',
-                    'Multi-region deployment',
-                    'Dedicated account manager',
-                    'Custom SLA agreements',
-                    'White-label options',
-                    'Architecture consulting',
-                    'Training & onboarding',
-                    'Volume discounts',
+                    '4 vCPUs, 8GB RAM',
+                    '100GB SSD storage',
+                    'Dedicated PostgreSQL instance',
+                    'Dedicated Redis instance',
+                    'Daily backups (30 days)',
+                    'Priority support',
+                    '99.9% uptime SLA',
+                    'Advanced monitoring',
+                    'Custom domain support',
+                    'Unlimited tenant instances',
                   ].map((feature) => (
                     <ListItem key={feature} disableGutters>
                       <ListItemIcon>

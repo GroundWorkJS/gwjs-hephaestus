@@ -233,7 +233,7 @@ export const HomePage: React.FC = () => {
                 'Comprehensive audit logging tracks every database query, API call, and user action. Pass compliance audits with automatically generated reports.',
               link: '/o/security',
             },
-          ].map(({ icon, title, description, link }) => (
+          ].map(({ icon, title, description, link, external }) => (
             <Grid size={{ xs: 12, md: 6 }} key={title}>
               <Card
                 sx={{

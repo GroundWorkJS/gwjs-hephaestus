@@ -264,6 +264,141 @@ const createTenantRouter: TenantRouterFactory = (deps) => {
     }
   }));
 
+  // ============================================================================
+  // Waitlist Routes
+  // ============================================================================
+
+  // Public: Submit waitlist form
+  r.post('/waitlist', asyncHandler(async (req: Request, res: Response) => {
+    if (!db.isAvailable) {
+      return sendError(res, 503, 'Database not configured');
+    }
+
+    const { name, email, company, referrer } = req.body as {
+      name?: string;
+      email?: string;
+      company?: string;
+      referrer?: string;
+    };
+
+    // Validation
+    if (!name || typeof name !== 'string' || name.trim().length === 0) {
+      return sendError(res, 400, 'Name is required');
+    }
+
+    if (!email || typeof email !== 'string' || email.trim().length === 0) {
+      return sendError(res, 400, 'Email is required');
+    }
+
+    // Comprehensive email validation
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (!emailRegex.test(email.trim())) {
+      return sendError(res, 400, 'Please provide a valid email address');
+    }
+
+    if (name.trim().length > 200) {
+      return sendError(res, 400, 'Name is too long (max 200 characters)');
+    }
+
+    if (company && company.trim().length > 200) {
+      return sendError(res, 400, 'Company is too long (max 200 characters)');
+    }
+
+    try {
+      // Check if email already exists
+      const existing = await db.table('tenant_waitlist_signups')
+        .where({ email: email.trim().toLowerCase() })
+        .first();
+
+      if (existing) {
+        return sendError(res, 409, 'This email is already on the waitlist');
+      }
+
+      // Generate a secure ID
+      const id = `waitlist_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+      // Sanitize inputs (trim and limit length)
+      const sanitizedData = {
+        id,
+        name: name.trim().substring(0, 200),
+        email: email.trim().toLowerCase().substring(0, 200),
+        company: company?.trim().substring(0, 200) || null,
+        referrer: referrer?.trim().substring(0, 200) || null,
+        metadata: null,
+      };
+
+      await db.table('tenant_waitlist_signups').insert(sanitizedData);
+
+      logger.info('Waitlist signup submitted', { id, email: sanitizedData.email });
+
+      sendSuccess(res, {
+        ok: true,
+        message: 'Thank you for joining our waitlist! We\'ll be in touch soon.'
+      }, 201);
+    } catch (err) {
+      logger.error('Failed to save waitlist signup', err);
+      sendError(res, 500, 'Failed to save your signup. Please try again.');
+    }
+  }));
+
+  // Admin: List waitlist signups (requires auth + permission)
+  r.get('/waitlist', requireAuthMiddleware, asyncHandler(async (req: Request, res: Response) => {
+    if (!db.isAvailable) {
+      return sendError(res, 503, 'Database not configured');
+    }
+
+    const user = getTenantUser(req);
+    if (!user) {
+      return sendError(res, 401, 'Unauthorized');
+    }
+
+    logger.audit('waitlist_list_accessed', { userId: user.id });
+
+    const limit = Math.min(Number(req.query.limit) || 50, 200);
+    const offset = Math.max(Number(req.query.offset) || 0, 0);
+    const search = typeof req.query.q === 'string' ? req.query.q : undefined;
+    const order = req.query.order === 'asc' ? 'asc' : 'desc';
+
+    try {
+      // Build query
+      let query = db.table('tenant_waitlist_signups');
+
+      // Search filter
+      if (search?.trim()) {
+        const s = `%${search.trim()}%`;
+        query = query.where(function (this: any) {
+          this.whereRaw('LOWER(name) LIKE LOWER(?)', [s])
+            .orWhereRaw('LOWER(email) LIKE LOWER(?)', [s])
+            .orWhereRaw('LOWER(company) LIKE LOWER(?)', [s]);
+        });
+      }
+
+      // Get total count before pagination
+      const countQuery = query.clone();
+      const [{ count }] = await countQuery.count('* as count');
+      const total = Number(count);
+
+      // Get paginated rows
+      const rows = await query
+        .orderBy('createdAt', order)
+        .limit(limit)
+        .offset(offset)
+        .select('*');
+
+      sendSuccess(res, {
+        rows,
+        total,
+        limit,
+        offset,
+        order,
+        q: search || '',
+      });
+    } catch (err) {
+      logger.error('Failed to fetch waitlist signups', err);
+      sendError(res, 500, 'Failed to fetch waitlist signups');
+    }
+  }));
+
   r.get('/status', asyncHandler(async (req: Request, res: Response) => {
     if (!db.isAvailable) {
       return sendError(res, 503, 'Database not configured');

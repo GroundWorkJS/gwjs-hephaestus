@@ -15,5 +15,6 @@ export const additivePages: TenantRouteMap = {
   '/o/taco': 'TacoPage',
   '/o/contact': 'ContactPage',
   '/o/about': 'AboutPage',
+  '/o/waitlist': 'WaitlistPage',
   '/o/admin/messages': 'AdminMessagesPage',
 };
