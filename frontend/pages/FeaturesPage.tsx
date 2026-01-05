@@ -108,14 +108,14 @@ export const FeaturesPage: React.FC = () => {
       icon: <CodeIcon sx={{ fontSize: 40, color: '#f093fb' }} />,
       features: [
         {
-          name: 'Plugin SDK',
+          name: 'Modern Development Tools',
           description:
-            'Build custom plugins with full type safety and modern tooling. Sandboxed execution, comprehensive APIs, and streamlined development workflow.',
+            'Comprehensive development environment with hot module replacement, instant feedback, and optimized build pipelines for rapid iteration.',
         },
         {
-          name: 'Hot Module Replacement',
+          name: 'Type-Safe APIs',
           description:
-            'Instant code updates during development without losing state. Optimized real-time updates deliver sub-second feedback.',
+            'Full TypeScript support with automatic type generation, ensuring compile-time safety and excellent IDE integration throughout your codebase.',
         },
         {
           name: 'GraphQL API',
@@ -140,38 +140,38 @@ export const FeaturesPage: React.FC = () => {
       ],
     },
     {
-      title: 'Plugin Marketplace',
+      title: 'Customization & Extensibility',
       icon: <ExtensionIcon sx={{ fontSize: 40, color: '#4facfe' }} />,
       features: [
         {
-          name: 'Revenue Sharing',
+          name: 'Custom Branding',
           description:
-            'Monetize your plugins. Built-in billing integration, usage metering, and automated payouts. Keep 70% of revenue.',
+            'Full white-label capabilities including custom logos, color schemes, themes, and branding elements. Make it truly yours.',
         },
         {
-          name: 'Sandbox Security',
+          name: 'Workflow Customization',
           description:
-            'Plugins run in isolated environments with restricted access. No plugin can access another tenant\'s data or compromise the platform.',
+            'Configure and customize business workflows, approval processes, and automation rules to match your organization\'s unique requirements.',
         },
         {
-          name: 'Version Management',
+          name: 'API Integration',
           description:
-            'Automatic semantic versioning, dependency resolution, and backward compatibility checks. Safe, automated updates.',
+            'RESTful and GraphQL APIs for seamless integration with your existing tools and services. Webhooks for real-time event notifications.',
         },
         {
-          name: 'Performance Monitoring',
+          name: 'Custom Features',
           description:
-            'Real-time metrics for plugin performance, resource usage, and error rates. Automatic throttling prevents resource abuse.',
+            'Extend the platform with custom features and functionality tailored to your business needs. Future plugin system on roadmap.',
         },
         {
-          name: 'Discovery & Distribution',
+          name: 'Multi-Tenant Architecture',
           description:
-            'Centralized marketplace with search, ratings, reviews, and analytics. One-click installation for users.',
+            'Deploy multiple isolated instances from a single platform. Each tenant gets dedicated resources while sharing infrastructure efficiency.',
         },
         {
-          name: 'Testing Framework',
+          name: 'Configuration Management',
           description:
-            'Automated testing suite, integration tests, and security scanning. Quality gates before marketplace publication.',
+            'Centralized configuration for all platform settings. Environment-specific configs with validation and version control.',
         },
       ],
     },
@@ -386,20 +386,24 @@ export const FeaturesPage: React.FC = () => {
               a: 'No. Every instance comes with enterprise-grade security pre-configured: TLS encryption, authentication, audit logging, and compliance controls are enabled by default.',
             },
             {
-              q: 'Can I customize the infrastructure?',
-              a: 'Yes. While the platform provides secure defaults, you have full access to customize infrastructure, add monitoring tools, or integrate with your existing DevOps pipeline.',
+              q: 'Can I customize the platform for my organization?',
+              a: 'Absolutely. The platform is designed for deep customization including branding, workflows, integrations, and custom features. You maintain full control while benefiting from security and compliance built into the foundation.',
+            },
+            {
+              q: 'What features are planned for the future?',
+              a: 'Our roadmap includes advanced analytics, AI-powered insights, mobile apps, expanded integration marketplace, and a comprehensive plugin ecosystem. We regularly update based on customer feedback.',
             },
             {
               q: 'How does plugin sandboxing work?',
-              a: 'Each plugin runs in an isolated environment with restricted access to system resources and tenant data. Resource limits prevent abuse, and comprehensive audit logging tracks all plugin activity.',
+              a: 'While our plugin system is on the roadmap, it will feature isolated execution environments with restricted access to system resources and tenant data. Resource limits will prevent abuse, with comprehensive audit logging.',
             },
             {
               q: 'What happens during updates?',
               a: 'Zero-downtime rolling updates. The platform automatically tests updates in staging, deploys with blue-green strategy, and rolls back if health checks fail.',
             },
             {
-              q: 'Is the source code available?',
-              a: 'The core platform is open source under MIT license. Enterprise features (advanced compliance, SLA guarantees, dedicated support) require a commercial license.',
+              q: 'Who owns the platform and data?',
+              a: 'You maintain complete ownership of your data and instance. The platform provides the infrastructure and features as a subscription service with full data portability.',
             },
           ].map(({ q, a }) => (
             <Accordion key={q}>

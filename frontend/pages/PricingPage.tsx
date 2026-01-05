@@ -38,9 +38,9 @@ export const PricingPage: React.FC = () => {
   const cloudSavings = 12000; // Average savings vs DIY cloud
   const complianceSavings = 50000; // Average compliance setup cost
   const annualSavings = devTimeWasted + cloudSavings + complianceSavings;
-  const monthlyEnterprisePrice = 499;
-  const annualEnterprisePrice = monthlyEnterprisePrice * 12 * 0.8; // 20% discount
-  const roi = ((annualSavings - annualEnterprisePrice) / annualEnterprisePrice) * 100;
+  const monthlyBasePrice = 249;
+  const annualBasePrice = monthlyBasePrice * 12 * 0.85; // 15% discount
+  const roi = ((annualSavings - annualBasePrice) / annualBasePrice) * 100;
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -74,8 +74,8 @@ export const PricingPage: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              Start with open source. Upgrade to managed hosting when you need it.
-              All plans include security features and updates.
+              Everything you need in one predictable subscription.
+              Scale resources as you grow—no hidden fees, no surprises.
             </Typography>
 
             <FormControlLabel
@@ -97,7 +97,7 @@ export const PricingPage: React.FC = () => {
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Typography>Monthly</Typography>
                   <Chip
-                    label="Save 20%"
+                    label="Save 15%"
                     size="small"
                     sx={{
                       bgcolor: '#43e97b',
@@ -119,7 +119,7 @@ export const PricingPage: React.FC = () => {
       {/* Pricing Cards */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Grid container spacing={4} alignItems="stretch">
-          {/* Open Source Plan */}
+          {/* Standard Plan */}
           <Grid size={{ xs: 12, md: 4 }}>
             <Card
               sx={{
@@ -131,18 +131,18 @@ export const PricingPage: React.FC = () => {
             >
               <CardContent sx={{ p: 4, flex: 1 }}>
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                  Open Source
+                  Standard
                 </Typography>
                 <Typography variant="body2" color="text.secondary" paragraph>
-                  Perfect for developers, startups, and side projects
+                  Perfect for small businesses and startups
                 </Typography>
 
                 <Box my={3}>
                   <Typography variant="h3" sx={{ fontWeight: 800 }}>
-                    $0
+                    ${showAnnual ? '212' : '249'}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Forever free • MIT License
+                    per instance/month{showAnnual && ' (billed annually)'}
                   </Typography>
                 </Box>
 
@@ -150,26 +150,31 @@ export const PricingPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   size="large"
-                  href={`https://groundworkjs.com/download?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
+                  href={`https://groundworkjs.com/signup?plan=standard&xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{ mb: 3 }}
                 >
-                  Download Now
+                  Get Started
                 </Button>
 
                 <Divider sx={{ my: 2 }} />
 
+                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
+                  Included resources:
+                </Typography>
+
                 <List dense>
                   {[
-                    'Full platform source code',
-                    'Self-hosted deployment',
-                    'Community support',
-                    'Basic security features',
-                    'Enterprise database + caching',
-                    'Container-based architecture',
-                    'MIT License',
-                    'No vendor lock-in',
+                    '2 vCPUs, 4GB RAM',
+                    '50GB SSD storage',
+                    '500GB bandwidth/month',
+                    'Dedicated database instance',
+                    'SSL certificates included',
+                    'Daily automated backups',
+                    'Email & chat support',
+                    'All security features',
+                    '99.9% uptime SLA',
                   ].map((feature) => (
                     <ListItem key={feature} disableGutters>
                       <ListItemIcon>
@@ -178,6 +183,137 @@ export const PricingPage: React.FC = () => {
                       <ListItemText
                         primary={feature}
                         primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
+                  Usage-based pricing:
+                </Typography>
+                <List dense>
+                  {[
+                    'Additional storage: $0.10/GB',
+                    'Additional bandwidth: $0.05/GB',
+                    'Extra CPU/RAM: from $50/month',
+                  ].map((item) => (
+                    <ListItem key={item} disableGutters>
+                      <ListItemText
+                        primary={item}
+                        primaryTypographyProps={{ variant: 'caption', color: 'text.secondary' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Professional Plan */}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                border: '3px solid #667eea',
+                boxShadow: '0 8px 24px rgba(102, 126, 234, 0.3)',
+              }}
+            >
+              <Chip
+                icon={<StarIcon />}
+                label="Most Popular"
+                sx={{
+                  position: 'absolute',
+                  top: -16,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  bgcolor: '#667eea',
+                  color: 'white',
+                  fontWeight: 600,
+                }}
+              />
+
+              <CardContent sx={{ p: 4, flex: 1 }}>
+                <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
+                  Professional
+                </Typography>
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  For growing businesses and teams
+                </Typography>
+
+                <Box my={3}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
+                    ${showAnnual ? '424' : '499'}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    per instance/month{showAnnual && ' (billed annually)'}
+                  </Typography>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  size="large"
+                  href={`https://groundworkjs.com/signup?plan=professional&xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    mb: 3,
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  }}
+                >
+                  Get Started
+                </Button>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
+                  Everything in Standard, plus:
+                </Typography>
+
+                <List dense>
+                  {[
+                    '4 vCPUs, 8GB RAM',
+                    '200GB SSD storage',
+                    '2TB bandwidth/month',
+                    'Dedicated Redis cache',
+                    'Priority support (24/7)',
+                    'Advanced monitoring',
+                    'Custom domain support',
+                    '99.95% uptime SLA',
+                    'Compliance reporting',
+                  ].map((feature) => (
+                    <ListItem key={feature} disableGutters>
+                      <ListItemIcon>
+                        <CheckCircleIcon sx={{ color: '#667eea' }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={feature}
+                        primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
+                  Usage-based pricing:
+                </Typography>
+                <List dense>
+                  {[
+                    'Additional storage: $0.08/GB',
+                    'Additional bandwidth: $0.04/GB',
+                    'Extra CPU/RAM: from $40/month',
+                  ].map((item) => (
+                    <ListItem key={item} disableGutters>
+                      <ListItemText
+                        primary={item}
+                        primaryTypographyProps={{ variant: 'caption', color: 'text.secondary' }}
                       />
                     </ListItem>
                   ))}
@@ -194,113 +330,22 @@ export const PricingPage: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'relative',
-                border: '3px solid #667eea',
-                boxShadow: '0 8px 24px rgba(102, 126, 234, 0.3)',
-              }}
-            >
-              <Chip
-                icon={<StarIcon />}
-                label="Best Value"
-                sx={{
-                  position: 'absolute',
-                  top: -16,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  bgcolor: '#667eea',
-                  color: 'white',
-                  fontWeight: 600,
-                }}
-              />
-
-              <CardContent sx={{ p: 4, flex: 1 }}>
-                <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                  Shared VPS
-                </Typography>
-                <Typography variant="body2" color="text.secondary" paragraph>
-                  Managed hosting for small to medium applications
-                </Typography>
-
-                <Box my={3}>
-                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
-                    ${showAnnual ? '119' : '149'}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    per month{showAnnual && ' (billed annually)'}
-                  </Typography>
-                </Box>
-
-                <Button
-                  variant="contained"
-                  fullWidth
-                  size="large"
-                  href={`https://groundworkjs.com/pricing?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    mb: 3,
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  }}
-                >
-                  Get Started
-                </Button>
-
-                <Divider sx={{ my: 2 }} />
-
-                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
-                  Managed hosting includes:
-                </Typography>
-
-                <List dense>
-                  {[
-                    '2 vCPUs, 4GB RAM',
-                    '50GB SSD storage',
-                    'Shared PostgreSQL & Redis',
-                    'SSL certificates included',
-                    'Daily backups (7 days)',
-                    'Email support',
-                    'Security updates',
-                    '99.5% uptime target',
-                    'Up to 10 tenant instances',
-                  ].map((feature) => (
-                    <ListItem key={feature} disableGutters>
-                      <ListItemIcon>
-                        <CheckCircleIcon sx={{ color: '#667eea' }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={feature}
-                        primaryTypographyProps={{ variant: 'body2' }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Custom Plan */}
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Card
-              sx={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
               }}
             >
               <CardContent sx={{ p: 4, flex: 1 }}>
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                  Private VPS
+                  Enterprise
                 </Typography>
                 <Typography variant="body2" color="text.secondary" paragraph>
-                  Dedicated resources for production applications
+                  For organizations with compliance needs
                 </Typography>
 
                 <Box my={3}>
                   <Typography variant="h3" sx={{ fontWeight: 800 }}>
-                    ${showAnnual ? '199' : '250'}
+                    Custom
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    per month{showAnnual && ' (billed annually)'}
+                    Contact sales for pricing
                   </Typography>
                 </Box>
 
@@ -308,32 +353,32 @@ export const PricingPage: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   size="large"
-                  href={`https://groundworkjs.com/pricing?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
+                  href={`https://groundworkjs.com/contact?plan=enterprise&xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{ mb: 3 }}
                 >
-                  Get Started
+                  Contact Sales
                 </Button>
 
                 <Divider sx={{ my: 2 }} />
 
                 <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
-                  Everything in Shared VPS, plus:
+                  Everything in Professional, plus:
                 </Typography>
 
                 <List dense>
                   {[
-                    '4 vCPUs, 8GB RAM',
-                    '100GB SSD storage',
-                    'Dedicated PostgreSQL instance',
-                    'Dedicated Redis instance',
-                    'Daily backups (30 days)',
-                    'Priority support',
-                    '99.9% uptime SLA',
-                    'Advanced monitoring',
-                    'Custom domain support',
-                    'Unlimited tenant instances',
+                    'Custom CPU, RAM, storage',
+                    'Unlimited bandwidth',
+                    'Dedicated infrastructure',
+                    'On-premise deployment option',
+                    'White-label capabilities',
+                    'Custom SLA (up to 99.99%)',
+                    'Dedicated account manager',
+                    'Government certifications',
+                    'Custom integrations',
+                    'Training & onboarding',
                   ].map((feature) => (
                     <ListItem key={feature} disableGutters>
                       <ListItemIcon>
@@ -342,6 +387,27 @@ export const PricingPage: React.FC = () => {
                       <ListItemText
                         primary={feature}
                         primaryTypographyProps={{ variant: 'body2' }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Typography variant="caption" sx={{ fontWeight: 600, mb: 1, display: 'block' }}>
+                  Custom pricing based on:
+                </Typography>
+                <List dense>
+                  {[
+                    'Number of instances',
+                    'Resource requirements',
+                    'Support level',
+                    'Compliance needs',
+                  ].map((item) => (
+                    <ListItem key={item} disableGutters>
+                      <ListItemText
+                        primary={item}
+                        primaryTypographyProps={{ variant: 'caption', color: 'text.secondary' }}
                       />
                     </ListItem>
                   ))}
@@ -449,9 +515,9 @@ export const PricingPage: React.FC = () => {
                 </Box>
 
                 <Box display="flex" justifyContent="space-between">
-                  <Typography>Enterprise Plan Cost (Annual)</Typography>
+                  <Typography>Platform subscription (Annual)</Typography>
                   <Typography sx={{ fontWeight: 600 }}>
-                    -${annualEnterprisePrice.toLocaleString()}
+                    -${annualBasePrice.toLocaleString()}
                   </Typography>
                 </Box>
 
@@ -463,7 +529,7 @@ export const PricingPage: React.FC = () => {
                   </Typography>
                   <Chip
                     icon={<SavingsIcon />}
-                    label={`$${(annualSavings - annualEnterprisePrice).toLocaleString()}`}
+                    label={`$${(annualSavings - annualBasePrice).toLocaleString()}`}
                     sx={{
                       bgcolor: '#43e97b',
                       color: 'white',
@@ -512,36 +578,36 @@ export const PricingPage: React.FC = () => {
                     Feature
                   </th>
                   <th style={{ padding: '16px', textAlign: 'center', minWidth: '120px' }}>
-                    Open Source
+                    Standard
+                  </th>
+                  <th style={{ padding: '16px', textAlign: 'center', minWidth: '120px' }}>
+                    Professional
                   </th>
                   <th style={{ padding: '16px', textAlign: 'center', minWidth: '120px' }}>
                     Enterprise
-                  </th>
-                  <th style={{ padding: '16px', textAlign: 'center', minWidth: '120px' }}>
-                    Custom
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { feature: 'Full source code access', oss: true, ent: true, custom: true },
-                  { feature: 'Self-hosted deployment', oss: true, ent: true, custom: true },
-                  { feature: 'Container-based architecture', oss: true, ent: true, custom: true },
-                  { feature: 'Enterprise database + caching', oss: true, ent: true, custom: true },
-                  { feature: 'Basic security features', oss: true, ent: true, custom: true },
-                  { feature: 'Community support', oss: true, ent: false, custom: false },
-                  { feature: 'FedRAMP/HIPAA/PCI compliance', oss: false, ent: true, custom: true },
-                  { feature: '99.99% uptime SLA', oss: false, ent: true, custom: true },
-                  { feature: 'Managed infrastructure', oss: false, ent: true, custom: true },
-                  { feature: 'Automated backups', oss: false, ent: true, custom: true },
-                  { feature: 'Priority support (24/7)', oss: false, ent: true, custom: true },
-                  { feature: 'Compliance reporting', oss: false, ent: true, custom: true },
-                  { feature: 'SOC 2 Type II', oss: false, ent: true, custom: true },
-                  { feature: 'On-premise deployment', oss: false, ent: false, custom: true },
-                  { feature: 'Air-gapped environments', oss: false, ent: false, custom: true },
-                  { feature: 'Dedicated account manager', oss: false, ent: false, custom: true },
-                  { feature: 'Custom SLA agreements', oss: false, ent: false, custom: true },
-                  { feature: 'White-label options', oss: false, ent: false, custom: true },
+                  { feature: 'Multi-tenant architecture', standard: true, pro: true, ent: true },
+                  { feature: 'Dedicated database instance', standard: true, pro: true, ent: true },
+                  { feature: 'SSL certificates', standard: true, pro: true, ent: true },
+                  { feature: 'All security features', standard: true, pro: true, ent: true },
+                  { feature: 'Automated backups', standard: true, pro: true, ent: true },
+                  { feature: 'Email & chat support', standard: true, pro: false, ent: false },
+                  { feature: 'FedRAMP/HIPAA/PCI compliance', standard: false, pro: true, ent: true },
+                  { feature: '24/7 priority support', standard: false, pro: true, ent: true },
+                  { feature: 'Advanced monitoring', standard: false, pro: true, ent: true },
+                  { feature: 'Compliance reporting', standard: false, pro: true, ent: true },
+                  { feature: 'Custom domain support', standard: false, pro: true, ent: true },
+                  { feature: 'White-label capabilities', standard: false, pro: false, ent: true },
+                  { feature: 'On-premise deployment', standard: false, pro: false, ent: true },
+                  { feature: 'Dedicated infrastructure', standard: false, pro: false, ent: true },
+                  { feature: 'Custom SLA (up to 99.99%)', standard: false, pro: false, ent: true },
+                  { feature: 'Dedicated account manager', standard: false, pro: false, ent: true },
+                  { feature: 'Government certifications', standard: false, pro: false, ent: true },
+                  { feature: 'Custom integrations', standard: false, pro: false, ent: true },
                 ].map((row, idx) => (
                   <tr
                     key={row.feature}
@@ -552,21 +618,21 @@ export const PricingPage: React.FC = () => {
                   >
                     <td style={{ padding: '12px 16px' }}>{row.feature}</td>
                     <td style={{ padding: '12px 16px', textAlign: 'center' }}>
-                      {row.oss ? (
+                      {row.standard ? (
                         <CheckCircleIcon sx={{ color: '#43e97b' }} />
                       ) : (
                         <CloseIcon sx={{ color: '#ccc' }} />
                       )}
                     </td>
                     <td style={{ padding: '12px 16px', textAlign: 'center' }}>
-                      {row.ent ? (
+                      {row.pro ? (
                         <CheckCircleIcon sx={{ color: '#667eea' }} />
                       ) : (
                         <CloseIcon sx={{ color: '#ccc' }} />
                       )}
                     </td>
                     <td style={{ padding: '12px 16px', textAlign: 'center' }}>
-                      {row.custom ? (
+                      {row.ent ? (
                         <CheckCircleIcon sx={{ color: '#764ba2' }} />
                       ) : (
                         <CloseIcon sx={{ color: '#ccc' }} />
@@ -590,24 +656,24 @@ export const PricingPage: React.FC = () => {
           <Stack spacing={3}>
             {[
               {
-                q: 'Can I start with Open Source and upgrade later?',
-                a: 'Yes! Start with the MIT-licensed open source version and upgrade to Enterprise when you need compliance, SLA, or managed infrastructure. Your data migrations seamlessly.',
+                q: 'Can I start with Standard and upgrade later?',
+                a: 'Absolutely! Start with the Standard plan and upgrade to Professional or Enterprise anytime. Your data and settings migrate seamlessly with zero downtime.',
               },
               {
                 q: 'What payment methods do you accept?',
-                a: 'We accept all major credit cards, ACH transfers, and wire payments. Annual plans can be invoiced with NET-30 terms for qualified businesses.',
+                a: 'We accept all major credit cards, ACH transfers, and wire payments. Annual plans can be invoiced with NET-30 terms for qualified businesses and organizations.',
               },
               {
-                q: 'Is there a free trial for Enterprise?',
-                a: 'Yes, get a 14-day free trial of Enterprise with no credit card required. Experience full compliance features and managed infrastructure risk-free.',
+                q: 'Is there a free trial?',
+                a: 'Yes! Get a 14-day free trial of any plan with no credit card required. Experience full features including security, compliance, and support risk-free.',
               },
               {
-                q: 'Do you offer volume discounts?',
-                a: 'Yes! Contact sales for custom pricing on 10+ tenants or multi-year commitments. Custom plans include architectural consulting and dedicated support.',
+                q: 'How does usage-based pricing work?',
+                a: 'Each plan includes baseline resources (storage, bandwidth, compute). If you exceed these, you pay only for what you use at the rates listed. No surprise bills—we notify you before charges apply.',
               },
               {
                 q: 'What if I need to cancel?',
-                a: 'Monthly plans can be canceled anytime with no penalty. Annual plans are refundable pro-rata within the first 60 days. Export your data at any time.',
+                a: 'You can cancel anytime with no penalty. Annual plans are refundable pro-rata within the first 60 days. You maintain complete data ownership and can export at any time.',
               },
             ].map(({ q, a }) => (
               <Paper key={q} sx={{ p: 3 }}>
@@ -626,16 +692,16 @@ export const PricingPage: React.FC = () => {
       {/* CTA */}
       <Container maxWidth="lg" sx={{ py: 8, textAlign: 'center' }}>
         <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
-          Ready to Stop Overpaying for Infrastructure?
+          Ready to Get Started?
         </Typography>
         <Typography variant="h6" color="text.secondary" paragraph>
-          Join companies saving millions by choosing a pre-built, compliant platform.
+          Join organizations building secure, compliant solutions with our platform.
         </Typography>
         <Stack direction="row" spacing={3} justifyContent="center" mt={4}>
           <Button
             variant="contained"
             size="large"
-            href="https://groundworkjs.com/start?xref=tenant-demo-pricing-bottom"
+            href="https://groundworkjs.com/signup?xref=tenant-demo-pricing-bottom"
             target="_blank"
             rel="noopener noreferrer"
             sx={{
