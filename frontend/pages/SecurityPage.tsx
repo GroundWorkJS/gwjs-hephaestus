@@ -169,8 +169,9 @@ export const SecurityPage: React.FC = () => {
               icon: <LockIcon sx={{ fontSize: 40, color: '#667eea' }} />,
               features: [
                 'OAuth2/OpenID Connect integration',
-                'JWT with automatic rotation',
-                'Multi-factor authentication (MFA)',
+                'JWT with automatic token rotation',
+                'Single-use refresh tokens with replay detection',
+                'Multi-factor authentication (TOTP)',
                 'Secure session management',
                 'Account lockout after failed attempts',
                 'Passwordless authentication support',
@@ -192,11 +193,12 @@ export const SecurityPage: React.FC = () => {
               layer: 'Data Protection Layer',
               icon: <ShieldIcon sx={{ fontSize: 40, color: '#f093fb' }} />,
               features: [
-                'TLS 1.3 encryption in transit',
-                'AES-256 encryption at rest',
-                'Database-level encryption',
+                'TLS 1.2/1.3 encryption in transit',
+                'Optional TLS 1.3-only mode for maximum security',
+                'AES-256-GCM encryption for sensitive data',
+                'Optional LUKS database encryption at rest',
                 'Encrypted backups with rotation',
-                'Secure key management (KMS)',
+                'Secure key management',
                 'Data masking for sensitive fields',
               ],
             },
@@ -353,12 +355,12 @@ export const SecurityPage: React.FC = () => {
             {
               threat: 'Broken Authentication',
               protection:
-                'OAuth2/OIDC, automatic token rotation, MFA support, session management, and account lockout policies.',
+                'OAuth2/OIDC, JWT automatic token rotation with replay detection, TOTP-based MFA, session management, and account lockout policies.',
             },
             {
               threat: 'Sensitive Data Exposure',
               protection:
-                'TLS 1.3, AES-256 encryption, secure key management, encrypted backups, and data masking.',
+                'TLS 1.2/1.3 encryption (1.3-only mode available), AES-256-GCM encryption, optional LUKS database encryption, secure key management, encrypted backups, and data masking.',
             },
             {
               threat: 'XML External Entities (XXE)',
@@ -368,7 +370,7 @@ export const SecurityPage: React.FC = () => {
             {
               threat: 'Broken Access Control',
               protection:
-                'RBAC, ABAC, resource-level permissions, tenant-scoped authorization, and row-level security.',
+                'Hierarchical RBAC with god-mode roles, context-aware ABAC (time, location, attributes), resource-level permissions, tenant-scoped authorization, and automatic isolation enforcement.',
             },
             {
               threat: 'Security Misconfiguration',

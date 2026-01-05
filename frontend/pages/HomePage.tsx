@@ -53,8 +53,8 @@ export const HomePage: React.FC = () => {
                 mx: 'auto',
               }}
             >
-              A foundation for building secure, compliant SaaS applications.
-              Open source with enterprise features available.
+              Enterprise-grade security and compliance built-in. From small businesses
+              to government agencies—deploy with confidence.
             </Typography>
 
             {/* Compliance Badges */}
@@ -181,11 +181,11 @@ export const HomePage: React.FC = () => {
       <Container maxWidth="lg" sx={{ py: 10 }}>
         <Box textAlign="center" mb={8}>
           <Typography variant="h2" gutterBottom sx={{ fontWeight: 700 }}>
-            Built with Security in Mind
+            Everything You Need, Out of the Box
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto' }}>
-            A platform designed with security, compliance, and multi-tenancy as core principles.
-            Suitable for building SaaS applications with data isolation requirements.
+            A complete platform designed for organizations that demand security, compliance,
+            and reliability. Fully customizable to meet your unique needs.
           </Typography>
         </Box>
 
@@ -214,16 +214,16 @@ export const HomePage: React.FC = () => {
             },
             {
               icon: <ExtensionIcon sx={{ fontSize: 50, color: '#4facfe' }} />,
-              title: 'Extensible Architecture',
+              title: 'Deeply Customizable',
               description:
-                'Plugin SDK for extending platform functionality. Sandboxed execution environment provides isolation between tenants and plugins.',
+                'Tailor every aspect of the platform to your needs. Custom branding, workflows, integrations, and features—all while maintaining security and compliance standards.',
               link: '/o/features',
             },
             {
               icon: <MonetizationOnIcon sx={{ fontSize: 50, color: '#43e97b' }} />,
-              title: 'Revenue-Ready Platform',
+              title: 'Transparent Pricing',
               description:
-                'Built-in billing, subscription management, and usage metering. Your customers get isolated environments, you get recurring revenue.',
+                'Predictable subscription pricing starting at $249/instance. Scale resources as you grow with flexible bandwidth, storage, and compute options.',
               link: '/o/pricing',
             },
             {
@@ -272,10 +272,10 @@ export const HomePage: React.FC = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4} textAlign="center">
             {[
-              { number: 'Open', label: 'Source Core' },
-              { number: 'Multi', label: 'Tenant Ready' },
-              { number: 'Docker', label: 'Based Deploy' },
-              { number: 'MIT', label: 'Licensed' },
+              { number: 'Gov', label: 'Ready Compliance' },
+              { number: 'Multi', label: 'Tenant Secure' },
+              { number: '$249', label: 'Starting Price' },
+              { number: '24/7', label: 'Support' },
             ].map(({ number, label }) => (
               <Grid size={{ xs: 6, md: 3 }} key={label}>
                 <Typography

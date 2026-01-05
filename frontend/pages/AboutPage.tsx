@@ -22,7 +22,7 @@ const AboutPage = () => {
           About Our Platform
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Built with flexibility and customization in mind
+          Enterprise-grade security meets deep customization
         </Typography>
       </Box>
 
@@ -32,13 +32,14 @@ const AboutPage = () => {
           What We Offer
         </Typography>
         <Typography variant="body1" paragraph>
-          This is a demonstration of a tenant-customized platform. Everything
-          you see on this page is specific to this tenant instance, showcasing
-          the power of customization.
+          A comprehensive multi-tenant platform designed for organizations that demand
+          both security and flexibility. From small businesses to government agencies,
+          we provide the foundation you need to build with confidence.
         </Typography>
         <Typography variant="body1" paragraph>
-          Tenants can create their own pages, features, and functionality while
-          leveraging the robust foundation provided by the platform.
+          Every instance comes with government-level compliance controls, enterprise
+          security features, and the ability to customize every aspect to meet your
+          unique requirements—all while maintaining our strict security standards.
         </Typography>
       </Box>
 
@@ -104,16 +105,17 @@ const AboutPage = () => {
       {/* WHY CHOOSE US */}
       <Box mb={10}>
         <Typography variant="h4" gutterBottom>
-          Why This Matters
+          Why Choose Us
         </Typography>
         <Typography variant="body1" paragraph>
-          Traditional platforms force you into a one-size-fits-all model. Our
-          approach gives you the freedom to build exactly what your business
-          needs while maintaining the benefits of a managed platform.
+          Most platforms force you to choose between security and flexibility.
+          We provide both. Our subscription-based service delivers enterprise-grade
+          compliance controls while giving you complete freedom to customize.
         </Typography>
         <Typography variant="body1" paragraph>
-          Focus on your unique value proposition while we handle the
-          infrastructure, security, and core platform features.
+          Whether you're a startup needing FedRAMP compliance or a government agency
+          requiring custom integrations, our platform adapts to your needs. Focus on
+          your mission while we handle infrastructure, security, and compliance.
         </Typography>
       </Box>
 
