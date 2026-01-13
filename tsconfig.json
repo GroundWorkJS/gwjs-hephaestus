@@ -13,18 +13,17 @@
         "strict": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "baseUrl": ".",
         "paths": {
-            // ============================================================
-            // SECURITY: ONLY allow imports from plugin-sdk
-            // ============================================================
             "@groundworkjs/plugin-sdk": [
-                "../plugin-sdk/src"
+                "../gwjs-behemoth/packages/plugin-sdk/dist"
             ],
-            // BLOCKED: Prevent tenant from importing core packages
+            "@groundworkjs/plugin-sdk/ui": [
+                "../gwjs-behemoth/packages/plugin-sdk/dist/ui"
+            ],
             "@groundworkjs/db": ["../BLOCKED-CORE-PACKAGE"],
             "@groundworkjs/database": ["../BLOCKED-CORE-PACKAGE"],
             "@groundworkjs/backend": ["../BLOCKED-CORE-PACKAGE"],

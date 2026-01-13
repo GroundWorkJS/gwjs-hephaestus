@@ -555,7 +555,67 @@ environment:
 
 ---
 
-## 🔄 Version Control
+## � Platform Development Environment (For Platform Contributors)
+
+**Note:** This section is for those contributing to the platform itself (gwjs-behemoth), not for tenant development.
+
+If you're working on the **platform infrastructure** and need to test tenant isolation:
+
+### Setup
+
+```bash
+# 1. Make sure hephaestus is cloned to your home directory
+cd ~
+git clone git@github.com:your-org/gwjs-hephaestus.git
+
+# 2. Navigate to platform repository
+cd ~/dev/gwjs/gwjs-behemoth
+
+# 3. Run setup (creates symlink to hephaestus)
+./scripts/setup-tenant-dev.sh
+
+# 4. Start tenant development environment
+docker-compose -f docker-compose.tenant-dev.yml up
+```
+
+### What This Does
+
+- Creates isolated VM2 sandbox container
+- Mounts **this tenant repository** (gwjs-hephaestus) to `/workspace`
+- Provides PostgreSQL with `tenant_ext` schema only
+- Provides MinIO S3 storage for file testing
+- Enforces same security boundaries as production
+
+### Services
+
+- **Tenant API**: http://localhost:4000/api
+- **PostgreSQL**: localhost:5432 (tenant_ext schema only)
+- **MinIO Console**: http://localhost:9001
+- **Health Check**: http://localhost:4000/healthz
+
+### Testing Security
+
+```bash
+# Validate sandbox isolation
+cd ~/dev/gwjs/gwjs-behemoth
+./scripts/validate-tenant-sandbox.sh
+
+# Test API
+curl http://localhost:4000/api/hello
+
+# Test security (should fail gracefully)
+curl http://localhost:4000/api/exploit-test
+```
+
+### Documentation
+
+Full documentation for platform developers:
+- [TENANT_DEV_SETUP.md](../gwjs-behemoth/TENANT_DEV_SETUP.md) - Quick reference
+- [TENANT_DEVELOPMENT_GUIDE.md](../gwjs-behemoth/docs/TENANT_DEVELOPMENT_GUIDE.md) - Complete guide
+
+---
+
+## �🔄 Version Control
 
 ### Branching Strategy
 
