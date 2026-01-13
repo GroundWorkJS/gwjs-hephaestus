@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import {
   Box,
   Container,
@@ -9,325 +10,401 @@ import {
   CardContent,
   Chip,
   Stack,
-} from '@mui/material';
-import SecurityIcon from '@mui/icons-material/Security';
-import CloudIcon from '@mui/icons-material/Cloud';
-import SpeedIcon from '@mui/icons-material/Speed';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import ExtensionIcon from '@mui/icons-material/Extension';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+  Paper,
+  Avatar,
+  Divider,
+  IconButton,
+  Link,
+  AddIcon,
+  EditIcon,
+  CheckIcon,
+  RefreshIcon,
+  ExtensionIcon,
+  DeleteIcon,
+} from '@groundworkjs/plugin-sdk/ui';
 
 export const HomePage: React.FC = () => {
+  const features = [
+    {
+      icon: <CheckIcon />,
+      title: 'Dashboard',
+      description: 'Intuitive analytics and metrics at your fingertips',
+      color: '#6366f1',
+    },
+    {
+      icon: <ExtensionIcon />,
+      title: 'Extensions',
+      description: 'Extend functionality with a powerful plugin system',
+      color: '#8b5cf6',
+    },
+    {
+      icon: <EditIcon />,
+      title: 'Theming',
+      description: 'Fully customizable design system and components',
+      color: '#ec4899',
+    },
+    {
+      icon: <RefreshIcon />,
+      title: 'Performance',
+      description: 'Optimized for speed and seamless user experience',
+      color: '#f59e0b',
+    },
+    {
+      icon: <DeleteIcon />,
+      title: 'Data Layer',
+      description: 'Robust data management and persistence',
+      color: '#10b981',
+    },
+    {
+      icon: <AddIcon />,
+      title: 'Developer Tools',
+      description: 'Built-in tooling for rapid development',
+      color: '#3b82f6',
+    },
+  ];
+
+  const stats = [
+    { value: '99.9%', label: 'Uptime' },
+    { value: '<50ms', label: 'Response' },
+    { value: '100+', label: 'Components' },
+    { value: '∞', label: 'Possibilities' },
+  ];
+
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
-          py: { xs: 8, md: 12 },
           position: 'relative',
           overflow: 'hidden',
+          pt: { xs: 8, md: 12 },
+          pb: { xs: 10, md: 14 },
         }}
       >
-        <Container maxWidth="lg">
-          <Box textAlign="center">
+        {/* Gradient Background */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.3), transparent)'
+                : 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent)',
+          }}
+        />
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Stack spacing={4} alignItems="center" textAlign="center">
+            <Chip
+              label="Demo Instance"
+              size="small"
+              sx={{
+                bgcolor: 'primary.main',
+                color: 'primary.contrastText',
+                fontWeight: 500,
+                px: 1,
+              }}
+            />
+
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: '2.5rem', md: '4rem' },
+                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
                 fontWeight: 800,
-                mb: 2,
-                textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                lineHeight: 1.1,
+                background: (theme) =>
+                  theme.palette.mode === 'dark'
+                    ? 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)'
+                    : 'linear-gradient(135deg, #1a1a2e 0%, #4a4a6a 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                maxWidth: 900,
               }}
             >
-              Multi-Tenant SaaS Platform
+              Welcome to Your Application
             </Typography>
+
             <Typography
               variant="h5"
+              color="text.secondary"
               sx={{
-                fontSize: { xs: '1.1rem', md: '1.5rem' },
-                mb: 4,
-                opacity: 0.95,
-                maxWidth: '800px',
-                mx: 'auto',
+                maxWidth: 600,
+                fontSize: { xs: '1rem', md: '1.25rem' },
+                lineHeight: 1.6,
               }}
             >
-              Enterprise-grade security and compliance built-in. From small businesses
-              to government agencies—deploy with confidence.
+              A modern, extensible platform built with performance and developer
+              experience in mind. Start building something amazing.
             </Typography>
 
-            {/* Compliance Badges */}
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-              mb={4}
-              flexWrap="wrap"
-              sx={{ gap: 2 }}
-            >
-              <Chip
-                icon={<VerifiedUserIcon />}
-                label="FedRAMP Ready"
-                sx={{
-                  bgcolor: 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  fontWeight: 600,
-                  backdropFilter: 'blur(10px)',
-                }}
-              />
-              <Chip
-                icon={<VerifiedUserIcon />}
-                label="HIPAA Compliant"
-                sx={{
-                  bgcolor: 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  fontWeight: 600,
-                  backdropFilter: 'blur(10px)',
-                }}
-              />
-              <Chip
-                icon={<VerifiedUserIcon />}
-                label="PCI DSS"
-                sx={{
-                  bgcolor: 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  fontWeight: 600,
-                  backdropFilter: 'blur(10px)',
-                }}
-              />
-              <Chip
-                icon={<SecurityIcon />}
-                label="OWASP Secured"
-                sx={{
-                  bgcolor: 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  fontWeight: 600,
-                  backdropFilter: 'blur(10px)',
-                }}
-              />
-            </Stack>
-
-            {/* CTA Buttons */}
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
-              spacing={3}
-              justifyContent="center"
+              spacing={2}
+              sx={{ mt: 2 }}
             >
               <Button
                 variant="contained"
                 size="large"
-                href={`https://groundworkjs.com/?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/o/showcase"
                 sx={{
-                  bgcolor: 'white',
-                  color: '#667eea',
                   px: 4,
                   py: 1.5,
-                  fontSize: '1.1rem',
+                  borderRadius: 2,
                   fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'rgba(255,255,255,0.9)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
-                  },
-                  transition: 'all 0.3s ease',
+                  textTransform: 'none',
+                  fontSize: '1rem',
                 }}
               >
-                Learn More
+                Explore Features →
               </Button>
               <Button
                 variant="outlined"
                 size="large"
-                href="/o/security"
+                href="/o/notes"
                 sx={{
-                  borderColor: 'white',
-                  color: 'white',
                   px: 4,
                   py: 1.5,
-                  fontSize: '1.1rem',
+                  borderRadius: 2,
                   fontWeight: 600,
-                  '&:hover': {
-                    borderColor: 'white',
-                    bgcolor: 'rgba(255,255,255,0.1)',
-                    transform: 'translateY(-2px)',
-                  },
-                  transition: 'all 0.3s ease',
+                  textTransform: 'none',
+                  fontSize: '1rem',
                 }}
               >
-                Security Details
+                Get Started
               </Button>
             </Stack>
-          </Box>
+          </Stack>
         </Container>
-
-        {/* Decorative Elements */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            opacity: 0.1,
-            background:
-              'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2) 0%, transparent 50%)',
-          }}
-        />
       </Box>
 
-      {/* Value Propositions */}
-      <Container maxWidth="lg" sx={{ py: 10 }}>
-        <Box textAlign="center" mb={8}>
-          <Typography variant="h2" gutterBottom sx={{ fontWeight: 700 }}>
-            Everything You Need, Out of the Box
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto' }}>
-            A complete platform designed for organizations that demand security, compliance,
-            and reliability. Fully customizable to meet your unique needs.
-          </Typography>
-        </Box>
-
-        <Grid container spacing={4}>
-          {[
-            {
-              icon: <SecurityIcon sx={{ fontSize: 50, color: '#667eea' }} />,
-              title: 'Zero-Trust Architecture',
-              description:
-                'Multi-layer authentication, sandbox isolation, and automatic audit logging. Every tenant runs in a hardened container with zero shared resources.',
-              link: '/o/security',
-            },
-            {
-              icon: <CloudIcon sx={{ fontSize: 50, color: '#764ba2' }} />,
-              title: 'Automated Compliance',
-              description:
-                'Built-in FedRAMP, HIPAA, and PCI DSS compliance controls. Automatic security patching, encrypted backups, and compliance reporting out of the box.',
-              link: '/o/features',
-            },
-            {
-              icon: <SpeedIcon sx={{ fontSize: 50, color: '#f093fb' }} />,
-              title: 'Streamlined Development',
-              description:
-                'Docker-based setup with PostgreSQL, Redis, and development tooling configured. Reduces initial setup time for new SaaS projects.',
-              link: '/o/features',
-            },
-            {
-              icon: <ExtensionIcon sx={{ fontSize: 50, color: '#4facfe' }} />,
-              title: 'Deeply Customizable',
-              description:
-                'Tailor every aspect of the platform to your needs. Custom branding, workflows, integrations, and features—all while maintaining security and compliance standards.',
-              link: '/o/features',
-            },
-            {
-              icon: <MonetizationOnIcon sx={{ fontSize: 50, color: '#43e97b' }} />,
-              title: 'Transparent Pricing',
-              description:
-                'Predictable subscription pricing starting at $249/instance. Scale resources as you grow with flexible bandwidth, storage, and compute options.',
-              link: '/o/pricing',
-            },
-            {
-              icon: <VerifiedUserIcon sx={{ fontSize: 50, color: '#fa709a' }} />,
-              title: 'Audit-Proof by Design',
-              description:
-                'Comprehensive audit logging tracks every database query, API call, and user action. Pass compliance audits with automatically generated reports.',
-              link: '/o/security',
-            },
-          ].map(({ icon, title, description, link }) => (
-            <Grid size={{ xs: 12, md: 6 }} key={title}>
-              <Card
-                sx={{
-                  height: '100%',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-                  },
-                }}
-              >
-                <CardContent sx={{ p: 4 }}>
-                  <Box mb={2}>{icon}</Box>
-                  <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                    {title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" paragraph>
-                    {description}
-                  </Typography>
-                  <Button
-                    href={link}
-                    {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
-                    sx={{ color: '#667eea', fontWeight: 600 }}
-                  >
-                    Learn More →
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* Social Proof / Stats */}
-      <Box sx={{ bgcolor: 'grey.100', py: 8 }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={4} textAlign="center">
-            {[
-              { number: 'Gov', label: 'Ready Compliance' },
-              { number: 'Multi', label: 'Tenant Secure' },
-              { number: '$249', label: 'Starting Price' },
-              { number: '24/7', label: 'Support' },
-            ].map(({ number, label }) => (
-              <Grid size={{ xs: 6, md: 3 }} key={label}>
-                <Typography
-                  variant="h3"
-                  sx={{ fontWeight: 800, color: '#667eea', mb: 1 }}
+      {/* Stats Section */}
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, md: 4 },
+            borderRadius: 4,
+            bgcolor: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'rgba(255,255,255,0.03)'
+                : 'rgba(0,0,0,0.02)',
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          <Grid container spacing={3}>
+            {stats.map((stat, index) => (
+              <Grid size={{ xs: 6, md: 3 }} key={stat.label}>
+                <Stack
+                  alignItems="center"
+                  spacing={0.5}
+                  sx={{
+                    position: 'relative',
+                    '&::after':
+                      index < stats.length - 1
+                        ? {
+                          content: '""',
+                          position: 'absolute',
+                          right: 0,
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          height: '50%',
+                          width: 1,
+                          bgcolor: 'divider',
+                          display: { xs: 'none', md: 'block' },
+                        }
+                        : {},
+                  }}
                 >
-                  {number}
-                </Typography>
-                <Typography variant="h6" color="text.secondary">
-                  {label}
-                </Typography>
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontWeight: 700,
+                      fontSize: { xs: '1.75rem', md: '2.5rem' },
+                      background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    {stat.value}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontWeight: 500 }}
+                  >
+                    {stat.label}
+                  </Typography>
+                </Stack>
               </Grid>
             ))}
           </Grid>
+        </Paper>
+      </Container>
+
+      {/* Features Grid */}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
+        <Stack spacing={6}>
+          <Box textAlign="center">
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 700,
+                fontSize: { xs: '2rem', md: '2.75rem' },
+                mb: 2,
+              }}
+            >
+              Built for Modern Development
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{ maxWidth: 600, mx: 'auto', fontSize: '1.1rem' }}
+            >
+              Everything you need to build, deploy, and scale your application
+              with confidence.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={3}>
+            {features.map((feature) => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={feature.title}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    height: '100%',
+                    p: 1,
+                    borderRadius: 3,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    bgcolor: 'background.paper',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      borderColor: 'primary.main',
+                      transform: 'translateY(-4px)',
+                      boxShadow: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? '0 20px 40px rgba(0,0,0,0.3)'
+                          : '0 20px 40px rgba(0,0,0,0.08)',
+                    },
+                  }}
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Stack spacing={2}>
+                      <Avatar
+                        sx={{
+                          width: 48,
+                          height: 48,
+                          bgcolor: `${feature.color}15`,
+                          color: feature.color,
+                        }}
+                      >
+                        {feature.icon}
+                      </Avatar>
+                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        {feature.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {feature.description}
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Stack>
+      </Container>
+
+      {/* CTA Section */}
+      <Box sx={{ bgcolor: 'background.paper', py: { xs: 8, md: 12 } }}>
+        <Container maxWidth="md">
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 4, md: 6 },
+              borderRadius: 4,
+              textAlign: 'center',
+              background: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)'
+                  : 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%)',
+              border: '1px solid',
+              borderColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? 'rgba(99, 102, 241, 0.2)'
+                  : 'rgba(99, 102, 241, 0.1)',
+            }}
+          >
+            <Stack spacing={3} alignItems="center">
+              <Typography
+                variant="h3"
+                sx={{
+                  fontWeight: 700,
+                  fontSize: { xs: '1.75rem', md: '2.25rem' },
+                }}
+              >
+                Ready to dive in?
+              </Typography>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{ maxWidth: 400 }}
+              >
+                Explore the showcase to see all available components and features
+                in action.
+              </Typography>
+              <Button
+                variant="contained"
+                size="large"
+                href="/o/showcase"
+                sx={{
+                  mt: 2,
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  fontSize: '1rem',
+                }}
+              >
+                View Showcase →
+              </Button>
+            </Stack>
+          </Paper>
         </Container>
       </Box>
 
-      {/* Final CTA */}
-      <Container maxWidth="lg" sx={{ py: 10, textAlign: 'center' }}>
-        <Typography variant="h3" gutterBottom sx={{ fontWeight: 700 }}>
-          Ready to Explore?
-        </Typography>
-        <Typography variant="h6" color="text.secondary" paragraph>
-          Learn more about the platform and how it can support your SaaS application.
-        </Typography>
-        <Stack direction="row" spacing={3} justifyContent="center" mt={4}>
-          <Button
-            variant="contained"
-            size="large"
-            href={`https://groundworkjs.com/?xref=${typeof window !== 'undefined' ? window.location.hostname : 'tenant-demo'}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              px: 5,
-              py: 2,
-              fontSize: '1.1rem',
-              fontWeight: 600,
-            }}
+      {/* Footer */}
+      <Divider />
+      <Box sx={{ py: 4 }}>
+        <Container maxWidth="lg">
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
           >
-            Visit Main Site
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            href="/o/contact"
-            sx={{ px: 5, py: 2, fontSize: '1.1rem', fontWeight: 600 }}
-          >
-            Get in Touch
-          </Button>
-        </Stack>
-      </Container>
+            <Typography variant="body2" color="text.secondary">
+              Demo Application • Built with UI Core
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Link href="/o/settings">
+                <IconButton size="small" color="inherit">
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </Link>
+              <Link href="/o/showcase">
+                <IconButton size="small" color="inherit">
+                  <ExtensionIcon fontSize="small" />
+                </IconButton>
+              </Link>
+            </Stack>
+          </Stack>
+        </Container>
+      </Box>
     </Box>
   );
 };

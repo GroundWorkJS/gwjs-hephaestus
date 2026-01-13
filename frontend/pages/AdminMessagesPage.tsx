@@ -1,29 +1,6 @@
 'use client';
-import {
-  Box,
-  Container,
-  Typography,
-  CircularProgress,
-  Paper,
-  Chip,
-  IconButton,
-  TextField,
-  InputAdornment,
-  ToggleButtonGroup,
-  ToggleButton,
-  Tooltip,
-  Alert,
-  Tabs,
-  Tab,
-} from '@mui/material';
-import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
-import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RestoreIcon from '@mui/icons-material/Restore';
-import SearchIcon from '@mui/icons-material/Search';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+
+import { Box, Container, Typography, CircularProgress, Paper, Chip, IconButton, TextField, InputAdornment, ToggleButtonGroup, ToggleButton, Tooltip, Alert, Tabs, Tab, MarkEmailReadIcon, MarkEmailUnreadIcon, ArchiveIcon, DeleteIcon, RestoreIcon, SearchIcon, ListAltIcon, MailOutlineIcon } from '@groundworkjs/plugin-sdk/ui';
 import { useState, useEffect } from 'react';
 
 interface ContactSubmission {
