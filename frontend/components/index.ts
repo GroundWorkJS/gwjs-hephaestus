@@ -5,11 +5,11 @@
  */
 
 // Slot Components
-export { QuickActions, NotificationBell } from './NotificationBell.js';
-export { QuickStats } from './QuickStats.js';
-export { TenantBranding, WelcomeBanner } from './WelcomeBanner.js';
-export { TenantFooter } from './TenantFooter.js';
+export { QuickActions, NotificationBell } from './NotificationBell';
+export { QuickStats } from './QuickStats';
+export { TenantBranding, WelcomeBanner } from './WelcomeBanner';
+export { TenantFooter } from './TenantFooter';
 
 // Page Components
-export { ShowcaseSection } from './ShowcaseSection.js';
-export { SlotDiagram } from './SlotDiagram.js';
+export { ShowcaseSection } from './ShowcaseSection';
+export { SlotDiagram } from './SlotDiagram';
