@@ -11,12 +11,12 @@
  */
 
 // Store configuration
-export { tenantStoreConfig } from './store/index.js';
-export type { TenantState } from './store/index.js';
+export { tenantStoreConfig } from './store/index';
+export type { TenantState } from './store/index';
 
 // Slot registrations
-export { tenantSlots } from './slots/index.js';
-export type { TenantSlotConfig } from './slots/index.js';
+export { tenantSlots } from './slots/index';
+export type { TenantSlotConfig } from './slots/index';
 
 // Re-export components if needed directly
-export * from './components/index.js';
+export * from './components/index';
