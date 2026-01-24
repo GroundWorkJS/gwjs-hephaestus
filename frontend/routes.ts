@@ -5,16 +5,23 @@ export type TenantRouteMap = Record<RoutePath, string>;
 /**
  * Map of route -> PageName (without extension).
  * The host app will resolve names via @gwjs/tenant-pages/* using webpack context.
+ *
+ * Tenant routes live at the ROOT level for seamless URLs (no /tenant/ prefix).
+ * Platform reserved routes (like /dashboard, /admin/*, /settings/*) cannot be used.
+ *
+ * The route blacklist prevents conflicts - see @groundworkjs/plugin-sdk/routes
  */
 export const additivePages: TenantRouteMap = {
   // SDK Showcase Demo Pages
-  '/o/showcase': 'ShowcasePage',
-  '/o/notes': 'NotesPage',
-  '/o/settings': 'SettingsPage',
+  '/showcase': 'ShowcasePage',
+  '/notes': 'NotesPage',
+  '/tenant-settings': 'SettingsPage', // Renamed to avoid conflict with /settings/*
 
-  // Keep some existing pages
-  '/o/home': 'HomePage',
-  '/o/hello': 'HelloPage',
-  '/o/taco': 'TacoPage',
-  '/o/admin/messages': 'AdminMessagesPage',
+  // Demo pages
+  '/home': 'HomePage',
+  '/hello': 'HelloPage',
+  '/taco': 'TacoPage',
+
+  // Tenant-specific admin (not platform admin)
+  '/inbox': 'AdminMessagesPage',
 };

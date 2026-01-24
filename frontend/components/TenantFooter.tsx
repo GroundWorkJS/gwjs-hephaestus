@@ -35,7 +35,7 @@ export function TenantFooter(_props: SlotContentProps): React.ReactElement | nul
       <Stack spacing={1}>
         <Stack direction="row" spacing={2} justifyContent="center">
           <Link
-            href="/o/showcase"
+            href="/showcase"
             color="text.secondary"
             underline="hover"
             sx={{ fontSize: '0.75rem' }}
@@ -43,7 +43,7 @@ export function TenantFooter(_props: SlotContentProps): React.ReactElement | nul
             Showcase
           </Link>
           <Link
-            href="/o/settings"
+            href="/tenant-settings"
             color="text.secondary"
             underline="hover"
             sx={{ fontSize: '0.75rem' }}

@@ -45,13 +45,13 @@ export default function HelloPage(): React.ReactElement {
             Quick Links
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 2 }}>
-            <Button variant="contained" href="/o/notes" fullWidth>
+            <Button variant="contained" href="/notes" fullWidth>
               📝 Notes
             </Button>
-            <Button variant="outlined" href="/o/showcase" fullWidth>
+            <Button variant="outlined" href="/showcase" fullWidth>
               🧪 Showcase
             </Button>
-            <Button variant="outlined" href="/o/settings" fullWidth>
+            <Button variant="outlined" href="/tenant-settings" fullWidth>
               ⚙️ Settings
             </Button>
           </Stack>
