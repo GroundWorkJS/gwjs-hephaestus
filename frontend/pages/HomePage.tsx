@@ -146,7 +146,7 @@ export const HomePage: React.FC = () => {
               <Button
                 variant="contained"
                 size="large"
-                href="/o/showcase"
+                href="/showcase"
                 sx={{
                   px: 4,
                   py: 1.5,
@@ -161,7 +161,7 @@ export const HomePage: React.FC = () => {
               <Button
                 variant="outlined"
                 size="large"
-                href="/o/notes"
+                href="/notes"
                 sx={{
                   px: 4,
                   py: 1.5,
@@ -359,7 +359,7 @@ export const HomePage: React.FC = () => {
               <Button
                 variant="contained"
                 size="large"
-                href="/o/showcase"
+                href="/showcase"
                 sx={{
                   mt: 2,
                   px: 4,
@@ -391,12 +391,12 @@ export const HomePage: React.FC = () => {
               Demo Application • Built with UI Core
             </Typography>
             <Stack direction="row" spacing={1}>
-              <Link href="/o/settings">
+              <Link href="/tenant-settings">
                 <IconButton size="small" color="inherit">
                   <EditIcon fontSize="small" />
                 </IconButton>
               </Link>
-              <Link href="/o/showcase">
+              <Link href="/showcase">
                 <IconButton size="small" color="inherit">
                   <ExtensionIcon fontSize="small" />
                 </IconButton>

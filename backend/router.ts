@@ -672,22 +672,23 @@ const createTenantRouter: TenantRouterFactory = (deps) => {
     }
   }));
 
-  // Example: Query tenant-owned data
-  r.get('/stats/user-count', asyncHandler(async (_req: Request, res: Response) => {
-    if (!db.isAvailable) {
-      return sendError(res, 503, 'Database not configured');
-    }
-
-    // This will ONLY work if tenant_users table exists in tenant_ext schema
-    // If the table doesn't exist or isn't prefixed with tenant_, it will throw
-    try {
-      const count = await db.count('tenant_users');
-      sendSuccess(res, { users: count });
-    } catch (err) {
-      logger.error('Failed to count tenant users', err);
-      sendError(res, 500, 'Failed to query tenant data');
-    }
-  }));
+  // Example: Query tenant-owned data (DISABLED - table doesn't exist)
+  // Uncomment and create `tenant_users` table if you need this endpoint
+  // r.get('/stats/user-count', asyncHandler(async (_req: Request, res: Response) => {
+  //   if (!db.isAvailable) {
+  //     return sendError(res, 503, 'Database not configured');
+  //   }
+  //
+  //   // This will ONLY work if tenant_users table exists in tenant_ext schema
+  //   // If the table doesn't exist or isn't prefixed with tenant_, it will throw
+  //   try {
+  //     const count = await db.count('tenant_users');
+  //     sendSuccess(res, { users: count });
+  //   } catch (err) {
+  //     logger.error('Failed to count tenant users', err);
+  //     sendError(res, 500, 'Failed to query tenant data');
+  //   }
+  // }));
 
   // ============================================================================
   // Echo endpoint (for testing)
