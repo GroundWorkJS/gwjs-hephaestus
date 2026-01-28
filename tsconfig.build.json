@@ -23,7 +23,9 @@
       "@groundworkjs/backend": ["./BLOCKED-CORE-PACKAGE"],
       "@groundworkjs/frontend": ["./BLOCKED-CORE-PACKAGE"],
       "@groundworkjs/shared": ["./BLOCKED-CORE-PACKAGE"],
-      "@groundworkjs/types": ["./BLOCKED-CORE-PACKAGE"]
+      "@groundworkjs/types": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/ui-core": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/ui-enhanced": ["./BLOCKED-CORE-PACKAGE"]
     }
   },
   "include": [
