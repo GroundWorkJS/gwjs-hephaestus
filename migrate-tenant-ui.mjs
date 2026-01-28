@@ -17,47 +17,224 @@ const TENANT_ROOT = process.cwd();
 // Components available in SDK UI
 const SDK_COMPONENTS = new Set([
   // Layout
-  'Box', 'Container', 'Grid', 'Stack', 'Paper', 'Card', 'CardContent', 'CardHeader', 'CardActions', 'CardMedia', 'Divider',
+  'Box',
+  'Container',
+  'Grid',
+  'Stack',
+  'Paper',
+  'Card',
+  'CardContent',
+  'CardHeader',
+  'CardActions',
+  'CardMedia',
+  'Divider',
   // Inputs
-  'Button', 'IconButton', 'ButtonGroup', 'Fab', 'TextField', 'Select', 'MenuItem', 'Checkbox', 'Radio', 'RadioGroup',
-  'Switch', 'Slider', 'FormControl', 'FormControlLabel', 'FormGroup', 'FormHelperText', 'FormLabel',
-  'InputLabel', 'InputAdornment', 'OutlinedInput', 'FilledInput', 'Input', 'InputBase',
+  'Button',
+  'IconButton',
+  'ButtonGroup',
+  'Fab',
+  'TextField',
+  'Select',
+  'MenuItem',
+  'Checkbox',
+  'Radio',
+  'RadioGroup',
+  'Switch',
+  'Slider',
+  'FormControl',
+  'FormControlLabel',
+  'FormGroup',
+  'FormHelperText',
+  'FormLabel',
+  'InputLabel',
+  'InputAdornment',
+  'OutlinedInput',
+  'FilledInput',
+  'Input',
+  'InputBase',
   // Navigation
-  'AppBar', 'Toolbar', 'Drawer', 'SwipeableDrawer', 'Menu', 'Tabs', 'Tab', 'BottomNavigation', 'BottomNavigationAction',
-  'Breadcrumbs', 'Link', 'SpeedDial', 'SpeedDialAction', 'SpeedDialIcon', 'Stepper', 'Step', 'StepLabel',
-  'StepContent', 'StepButton', 'StepConnector', 'StepIcon', 'MobileStepper',
+  'AppBar',
+  'Toolbar',
+  'Drawer',
+  'SwipeableDrawer',
+  'Menu',
+  'Tabs',
+  'Tab',
+  'BottomNavigation',
+  'BottomNavigationAction',
+  'Breadcrumbs',
+  'Link',
+  'SpeedDial',
+  'SpeedDialAction',
+  'SpeedDialIcon',
+  'Stepper',
+  'Step',
+  'StepLabel',
+  'StepContent',
+  'StepButton',
+  'StepConnector',
+  'StepIcon',
+  'MobileStepper',
   // Data Display
-  'Typography', 'Table', 'TableBody', 'TableCell', 'TableContainer', 'TableHead', 'TableRow', 'TableFooter',
-  'TablePagination', 'TableSortLabel', 'List', 'ListItem', 'ListItemText', 'ListItemIcon', 'ListItemButton',
-  'ListItemAvatar', 'ListItemSecondaryAction', 'ListSubheader', 'Avatar', 'AvatarGroup', 'Badge', 'Chip', 'Tooltip', 'Icon', 'SvgIcon',
+  'Typography',
+  'Table',
+  'TableBody',
+  'TableCell',
+  'TableContainer',
+  'TableHead',
+  'TableRow',
+  'TableFooter',
+  'TablePagination',
+  'TableSortLabel',
+  'List',
+  'ListItem',
+  'ListItemText',
+  'ListItemIcon',
+  'ListItemButton',
+  'ListItemAvatar',
+  'ListItemSecondaryAction',
+  'ListSubheader',
+  'Avatar',
+  'AvatarGroup',
+  'Badge',
+  'Chip',
+  'Tooltip',
+  'Icon',
+  'SvgIcon',
   // Feedback
-  'Alert', 'AlertTitle', 'Snackbar', 'Dialog', 'DialogTitle', 'DialogContent', 'DialogContentText', 'DialogActions',
-  'CircularProgress', 'LinearProgress', 'Skeleton', 'Backdrop',
+  'Alert',
+  'AlertTitle',
+  'Snackbar',
+  'Dialog',
+  'DialogTitle',
+  'DialogContent',
+  'DialogContentText',
+  'DialogActions',
+  'CircularProgress',
+  'LinearProgress',
+  'Skeleton',
+  'Backdrop',
   // Surfaces
-  'Accordion', 'AccordionSummary', 'AccordionDetails', 'AccordionActions',
+  'Accordion',
+  'AccordionSummary',
+  'AccordionDetails',
+  'AccordionActions',
   // Utils
-  'ClickAwayListener', 'Collapse', 'Fade', 'Grow', 'Slide', 'Zoom', 'Modal', 'Popover', 'Popper', 'Portal',
-  'Rating', 'Pagination', 'PaginationItem', 'ToggleButton', 'ToggleButtonGroup',
+  'ClickAwayListener',
+  'Collapse',
+  'Fade',
+  'Grow',
+  'Slide',
+  'Zoom',
+  'Modal',
+  'Popover',
+  'Popper',
+  'Portal',
+  'Rating',
+  'Pagination',
+  'PaginationItem',
+  'ToggleButton',
+  'ToggleButtonGroup',
   // Theme
-  'ThemeProvider', 'useTheme', 'styled', 'createGWJSTheme',
+  'ThemeProvider',
+  'useTheme',
+  'styled',
+  'createGWJSTheme',
 ]);
 
 // Icons available with Icon suffix in SDK
 const SDK_ICONS = new Set([
-  'Menu', 'Close', 'ChevronLeft', 'ChevronRight', 'ExpandMore', 'ExpandLess', 'ArrowBack', 'ArrowForward',
-  'Home', 'Settings', 'MoreVert', 'MoreHoriz', 'Add', 'Edit', 'Delete', 'Save', 'Cancel', 'Check', 'Clear',
-  'Search', 'FilterList', 'Sort', 'Refresh', 'Download', 'Upload', 'Share', 'Print', 'Archive', 'Restore', 'Autorenew',
-  'Email', 'Phone', 'Chat', 'Notifications', 'NotificationsOff', 'MarkEmailRead', 'MarkEmailUnread', 'MailOutline',
-  'Info', 'Warning', 'Error', 'CheckCircle', 'Help', 'VerifiedUser', 'GppGood',
-  'Person', 'People', 'AccountCircle',
-  'ContentCopy', 'ContentPaste', 'ContentCut', 'Description', 'ListAlt',
-  'Visibility', 'VisibilityOff', 'Lock', 'LockOpen',
-  'Folder', 'FolderOpen', 'InsertDriveFile', 'AttachFile',
-  'Star', 'StarBorder', 'Favorite', 'FavoriteBorder', 'Bookmark', 'BookmarkBorder',
-  'Schedule', 'Event', 'Today',
-  'Dashboard', 'Analytics', 'TrendingUp', 'MonetizationOn', 'Savings', 'Policy', 'AssuredWorkload',
-  'Build', 'Code', 'BugReport', 'Security', 'Launch', 'OpenInNew',
-  'Storage', 'Cloud', 'CloudQueue', 'Speed', 'Extension', 'AccountTree', 'Shield', 'MonitorHeart',
+  'Menu',
+  'Close',
+  'ChevronLeft',
+  'ChevronRight',
+  'ExpandMore',
+  'ExpandLess',
+  'ArrowBack',
+  'ArrowForward',
+  'Home',
+  'Settings',
+  'MoreVert',
+  'MoreHoriz',
+  'Add',
+  'Edit',
+  'Delete',
+  'Save',
+  'Cancel',
+  'Check',
+  'Clear',
+  'Search',
+  'FilterList',
+  'Sort',
+  'Refresh',
+  'Download',
+  'Upload',
+  'Share',
+  'Print',
+  'Archive',
+  'Restore',
+  'Autorenew',
+  'Email',
+  'Phone',
+  'Chat',
+  'Notifications',
+  'NotificationsOff',
+  'MarkEmailRead',
+  'MarkEmailUnread',
+  'MailOutline',
+  'Info',
+  'Warning',
+  'Error',
+  'CheckCircle',
+  'Help',
+  'VerifiedUser',
+  'GppGood',
+  'Person',
+  'People',
+  'AccountCircle',
+  'ContentCopy',
+  'ContentPaste',
+  'ContentCut',
+  'Description',
+  'ListAlt',
+  'Visibility',
+  'VisibilityOff',
+  'Lock',
+  'LockOpen',
+  'Folder',
+  'FolderOpen',
+  'InsertDriveFile',
+  'AttachFile',
+  'Star',
+  'StarBorder',
+  'Favorite',
+  'FavoriteBorder',
+  'Bookmark',
+  'BookmarkBorder',
+  'Schedule',
+  'Event',
+  'Today',
+  'Dashboard',
+  'Analytics',
+  'TrendingUp',
+  'MonetizationOn',
+  'Savings',
+  'Policy',
+  'AssuredWorkload',
+  'Build',
+  'Code',
+  'BugReport',
+  'Security',
+  'Launch',
+  'OpenInNew',
+  'Storage',
+  'Cloud',
+  'CloudQueue',
+  'Speed',
+  'Extension',
+  'AccountTree',
+  'Shield',
+  'MonitorHeart',
 ]);
 
 function findTsxFiles(dir, files = []) {
@@ -84,9 +261,13 @@ function migrateFile(filePath) {
   const unmigrated = { components: new Set(), icons: new Set() };
 
   // Pattern for @mui/material barrel imports
-  const materialBarrelRegex = /import\s*\{([^}]+)\}\s*from\s*['"]@mui\/material['"];?/g;
+  const materialBarrelRegex =
+    /import\s*\{([^}]+)\}\s*from\s*['"]@mui\/material['"];?/g;
   content = content.replace(materialBarrelRegex, (match, imports) => {
-    const items = imports.split(',').map(s => s.trim()).filter(Boolean);
+    const items = imports
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
     const migratable = [];
     const notMigratable = [];
 
@@ -103,7 +284,9 @@ function migrateFile(filePath) {
     }
 
     if (notMigratable.length > 0 && migratable.length > 0) {
-      changes.push(`Partial migration: ${migratable.length} components to SDK, ${notMigratable.length} staying in MUI`);
+      changes.push(
+        `Partial migration: ${migratable.length} components to SDK, ${notMigratable.length} staying in MUI`,
+      );
       return `import { ${notMigratable.join(', ')} } from '@mui/material';`;
     } else if (notMigratable.length > 0) {
       return match; // Keep as-is
@@ -114,7 +297,8 @@ function migrateFile(filePath) {
   });
 
   // Pattern for @mui/material deep imports (Grid, etc)
-  const materialDeepRegex = /import\s+(\w+)\s+from\s*['"]@mui\/material\/(\w+)['"];?/g;
+  const materialDeepRegex =
+    /import\s+(\w+)\s+from\s*['"]@mui\/material\/(\w+)['"];?/g;
   content = content.replace(materialDeepRegex, (match, name, path) => {
     if (SDK_COMPONENTS.has(path)) {
       sdkImports.components.add(name === path ? name : `${path} as ${name}`);
@@ -126,9 +310,13 @@ function migrateFile(filePath) {
   });
 
   // Pattern for @mui/icons-material barrel imports
-  const iconsBarrelRegex = /import\s*\{([^}]+)\}\s*from\s*['"]@mui\/icons-material['"];?/g;
+  const iconsBarrelRegex =
+    /import\s*\{([^}]+)\}\s*from\s*['"]@mui\/icons-material['"];?/g;
   content = content.replace(iconsBarrelRegex, (match, imports) => {
-    const items = imports.split(',').map(s => s.trim()).filter(Boolean);
+    const items = imports
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
     const migratable = [];
     const notMigratable = [];
 
@@ -136,7 +324,9 @@ function migrateFile(filePath) {
       const name = item.split(/\s+as\s+/)[0].trim();
       if (SDK_ICONS.has(name)) {
         // SDK exports with Icon suffix
-        const alias = item.includes(' as ') ? item.split(/\s+as\s+/)[1].trim() : `${name}Icon`;
+        const alias = item.includes(' as ')
+          ? item.split(/\s+as\s+/)[1].trim()
+          : `${name}Icon`;
         migratable.push(`${name}Icon as ${alias.replace(/Icon$/, '')}Icon`);
         sdkImports.icons.add(`${name}Icon`);
       } else {
@@ -154,7 +344,8 @@ function migrateFile(filePath) {
   });
 
   // Pattern for @mui/icons-material deep imports
-  const iconsDeepRegex = /import\s+(\w+)\s+from\s*['"]@mui\/icons-material\/(\w+)['"];?/g;
+  const iconsDeepRegex =
+    /import\s+(\w+)\s+from\s*['"]@mui\/icons-material\/(\w+)['"];?/g;
   content = content.replace(iconsDeepRegex, (match, alias, iconName) => {
     if (SDK_ICONS.has(iconName)) {
       sdkImports.icons.add(`${iconName}Icon`);
@@ -174,7 +365,11 @@ function migrateFile(filePath) {
     const firstImportMatch = content.match(/^import\s/m);
     if (firstImportMatch) {
       const insertIndex = content.indexOf(firstImportMatch[0]);
-      content = content.slice(0, insertIndex) + sdkImportLine + '\n' + content.slice(insertIndex);
+      content =
+        content.slice(0, insertIndex) +
+        sdkImportLine +
+        '\n' +
+        content.slice(insertIndex);
     } else {
       content = sdkImportLine + '\n' + content;
     }
@@ -192,8 +387,8 @@ function migrateFile(filePath) {
       changes,
       unmigrated: {
         components: [...unmigrated.components],
-        icons: [...unmigrated.icons]
-      }
+        icons: [...unmigrated.icons],
+      },
     };
   }
   return null;
@@ -234,7 +429,11 @@ if (allUnmigrated.components.size > 0 || allUnmigrated.icons.size > 0) {
   if (allUnmigrated.icons.size > 0) {
     console.log(`   Icons: ${[...allUnmigrated.icons].join(', ')}`);
   }
-  console.log(`\n   These will need to stay as @mui/* imports or be added to SDK.`);
+  console.log(
+    `\n   These will need to stay as @mui/* imports or be added to SDK.`,
+  );
 }
 
-console.log(`\n${DRY_RUN ? '🔍 Dry run complete. Run without --dry-run to apply changes.' : '✅ Migration complete!'}\n`);
+console.log(
+  `\n${DRY_RUN ? '🔍 Dry run complete. Run without --dry-run to apply changes.' : '✅ Migration complete!'}\n`,
+);
