@@ -185,9 +185,9 @@ const createTenantRouter: TenantRouterFactory = deps => {
         // Search filter
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          query = query.where(function (this: unknown) {
-            (this as ReturnType<typeof db>)
-              .whereRaw('LOWER(name) LIKE LOWER(?)', [s])
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query = query.where(function (this: any) {
+            this.whereRaw('LOWER(name) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(email) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(subject) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(message) LIKE LOWER(?)', [s]);
@@ -453,9 +453,9 @@ const createTenantRouter: TenantRouterFactory = deps => {
         // Search filter
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          query = query.where(function (this: unknown) {
-            (this as ReturnType<typeof db>)
-              .whereRaw('LOWER(name) LIKE LOWER(?)', [s])
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query = query.where(function (this: any) {
+            this.whereRaw('LOWER(name) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(email) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(company) LIKE LOWER(?)', [s]);
           });
@@ -541,9 +541,9 @@ const createTenantRouter: TenantRouterFactory = deps => {
         // Search filter
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          query = query.where(function (this: unknown) {
-            (this as ReturnType<typeof db>)
-              .whereRaw('LOWER(title) LIKE LOWER(?)', [s])
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query = query.where(function (this: any) {
+            this.whereRaw('LOWER(title) LIKE LOWER(?)', [s])
               .orWhereRaw('LOWER(content) LIKE LOWER(?)', [s]);
           });
         }
