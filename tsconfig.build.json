@@ -1,15 +1,36 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "backend",
-    "outDir": "dist/backend",
+    "outDir": "dist",
     "declaration": true,
     "sourceMap": true,
-    "composite": false,
-    "module": "CommonJS",
-    "target": "ES2019",
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM"],
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "skipLibCheck": true
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@groundworkjs/plugin-sdk": ["../plugin-sdk/dist"],
+      "@groundworkjs/plugin-sdk/ui": ["../plugin-sdk/dist/ui"],
+      "@groundworkjs/db": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/database": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/backend": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/frontend": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/shared": ["./BLOCKED-CORE-PACKAGE"],
+      "@groundworkjs/types": ["./BLOCKED-CORE-PACKAGE"]
+    }
   },
-  "include": ["backend/**/*"]
+  "include": [
+    "manifest.ts",
+    "frontend/**/*.ts",
+    "frontend/**/*.tsx",
+    "backend/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }
