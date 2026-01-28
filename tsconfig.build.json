@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@groundworkjs/plugin-sdk": ["../plugin-sdk/dist"],
-      "@groundworkjs/plugin-sdk/ui": ["../plugin-sdk/dist/ui"],
+      "@groundworkjs/plugin-sdk/*": ["../plugin-sdk/dist/*"],
       "@groundworkjs/db": ["./BLOCKED-CORE-PACKAGE"],
       "@groundworkjs/database": ["./BLOCKED-CORE-PACKAGE"],
       "@groundworkjs/backend": ["./BLOCKED-CORE-PACKAGE"],

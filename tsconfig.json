@@ -21,8 +21,8 @@
             "@groundworkjs/plugin-sdk": [
                 "../gwjs-behemoth/packages/plugin-sdk/dist"
             ],
-            "@groundworkjs/plugin-sdk/ui": [
-                "../gwjs-behemoth/packages/plugin-sdk/dist/ui"
+            "@groundworkjs/plugin-sdk/*": [
+                "../gwjs-behemoth/packages/plugin-sdk/dist/*"
             ],
             "@groundworkjs/db": ["../BLOCKED-CORE-PACKAGE"],
             "@groundworkjs/database": ["../BLOCKED-CORE-PACKAGE"],
