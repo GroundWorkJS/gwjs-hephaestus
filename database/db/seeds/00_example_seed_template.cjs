@@ -21,9 +21,9 @@
  * - Use numbered prefixes: 001_seed_name.cjs, 002_another_seed.cjs
  * - Use descriptive names that indicate the data being seeded
  *
- * @param {import('knex').Knex} knex
+ * @param {import('knex').Knex} _knex
  */
-exports.seed = async function (knex) {
+exports.seed = async function (_knex) {
   // This is a template - it doesn't actually insert any data
   // Copy this file and modify for your specific seeding needs
 
