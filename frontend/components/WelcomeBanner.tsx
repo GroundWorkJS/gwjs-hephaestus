@@ -22,7 +22,7 @@ export function TenantBranding(_props: SlotContentProps): React.ReactElement | n
 
   return (
     <Chip
-      label="Demo Tenant"
+      label="Demo Tenants"
       size="small"
       sx={{
         mr: 1,

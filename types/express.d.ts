@@ -3,7 +3,6 @@ import 'express-serve-static-core';
 declare global {
   namespace Express {
     // Passport attaches a User object with these properties to req.user
-    // Based on the User type from @groundworkjs/types
     interface User {
       id: string;
       email?: string;

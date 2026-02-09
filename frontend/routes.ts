@@ -4,7 +4,7 @@ export type TenantRouteMap = Record<RoutePath, string>;
 
 /**
  * Map of route -> PageName (without extension).
- * The host app will resolve names via @gwjs/tenant-pages/* using webpack context.
+ * The platform will resolve component names from your `frontend/components/` folder.
  *
  * Tenant routes live at the ROOT level for seamless URLs (no /tenant/ prefix).
  * Platform reserved routes (like /dashboard, /admin/*, /settings/*) cannot be used.
