@@ -62,9 +62,9 @@ export const tenantSlots: TenantSlotConfig[] = [
     excludeRoutes: ['/login', '/register', '/forgot-password'],
   },
 
-  // Tenant footer in sidebar bottom
+  // Tenant footer in footer-center slot
   {
-    slot: 'sidebar-bottom',
+    slot: 'footer-center',
     component: TenantFooter,
     priority: 100,
     excludeRoutes: ['/login', '/register', '/forgot-password'],

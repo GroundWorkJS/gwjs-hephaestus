@@ -1,4 +1,4 @@
-// packages/tenant/backend/router.ts
+// backend/router.ts
 import type { TenantRouterFactory } from '@groundworkjs/plugin-sdk';
 import {
   getTenantUser,

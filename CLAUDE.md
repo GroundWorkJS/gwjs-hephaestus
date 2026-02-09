@@ -94,10 +94,6 @@ cd gwjs-dev-tenant-environment
 ./start.sh /path/to/this/repo
 ```
 
-### Option 2: Platform Staff Development
-
-If you have platform access, this repo is symlinked at `packages/tenant` in gwjs-behemoth for local development.
-
 ## Creating a Migration
 
 ```typescript
@@ -191,8 +187,8 @@ Your `tsconfig.json` should include path blocking for platform packages:
 {
   "compilerOptions": {
     "paths": {
-      "@groundworkjs/plugin-sdk": ["../gwjs-behemoth/packages/plugin-sdk/dist"],
-      "@groundworkjs/plugin-sdk/ui": ["../gwjs-behemoth/packages/plugin-sdk/dist/ui"],
+      "@groundworkjs/plugin-sdk": ["<resolved by dev environment>"],
+      "@groundworkjs/plugin-sdk/ui": ["<resolved by dev environment>"],
       "@groundworkjs/db": ["../BLOCKED-CORE-PACKAGE"],
       "@groundworkjs/backend": ["../BLOCKED-CORE-PACKAGE"]
     }
