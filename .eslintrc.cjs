@@ -6,8 +6,8 @@ module.exports = {
       settings: {
         'import/resolver': {
           typescript: {
-            // Point directly at the tenant tsconfig that has the @groundworkjs/* path alias
-            project: ['packages/tenant/tsconfig.json'],
+            // Point at the tsconfig that has the @groundworkjs/* path alias
+            project: ['./tsconfig.json'],
             alwaysTryTypes: true,
           },
           node: {
@@ -52,7 +52,7 @@ module.exports = {
               {
                 group: ['@groundworkjs/*'],
                 message:
-                  'Only types, shared, database(tenantDb), plugin-sdk allowed.',
+                  'Only @groundworkjs/plugin-sdk is allowed in tenant code.',
               },
             ],
           },
