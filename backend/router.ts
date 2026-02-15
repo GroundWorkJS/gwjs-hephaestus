@@ -6,6 +6,7 @@ import {
   sendSuccess,
   sendError,
   requireAuth,
+  isAdmin,
 } from '@groundworkjs/plugin-sdk';
 import type { Request, Response } from 'express';
 import { Router as ExpressRouter } from 'express';
@@ -149,7 +150,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
   // Protected Routes (auth required)
   // ============================================================================
 
-  // Admin: List contact submissions (requires auth + permission)
+  // Admin: List contact submissions (requires auth + admin role)
   r.get(
     '/contact',
     requireAuthMiddleware,
@@ -161,6 +162,11 @@ const createTenantRouter: TenantRouterFactory = deps => {
       const user = getTenantUser(req);
       if (!user) {
         return sendError(res, 401, 'Unauthorized');
+      }
+
+      // SECURITY: Only admins can view contact submissions (contains PII)
+      if (!isAdmin(user)) {
+        return sendError(res, 403, 'Admin access required');
       }
 
       logger.audit('contact_list_accessed', { userId: user.id });
@@ -182,15 +188,14 @@ const createTenantRouter: TenantRouterFactory = deps => {
           query = query.whereNull('deletedAt');
         }
 
-        // Search filter
+        // Search filter (case-insensitive via ILIKE)
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query = query.where(function (this: any) {
-            this.whereRaw('LOWER(name) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(email) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(subject) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(message) LIKE LOWER(?)', [s]);
+          query = query.where(function () {
+            this.whereILike('name', s)
+              .orWhereILike('email', s)
+              .orWhereILike('subject', s)
+              .orWhereILike('message', s);
           });
         }
 
@@ -234,6 +239,11 @@ const createTenantRouter: TenantRouterFactory = deps => {
       const user = getTenantUser(req);
       if (!user) {
         return sendError(res, 401, 'Unauthorized');
+      }
+
+      // SECURITY: Only admins can modify contact submissions
+      if (!isAdmin(user)) {
+        return sendError(res, 403, 'Admin access required');
       }
 
       const { id } = req.params;
@@ -425,7 +435,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
     }),
   );
 
-  // Admin: List waitlist signups (requires auth + permission)
+  // Admin: List waitlist signups (requires auth + admin role)
   r.get(
     '/waitlist',
     requireAuthMiddleware,
@@ -439,6 +449,11 @@ const createTenantRouter: TenantRouterFactory = deps => {
         return sendError(res, 401, 'Unauthorized');
       }
 
+      // SECURITY: Only admins can view waitlist signups (contains PII)
+      if (!isAdmin(user)) {
+        return sendError(res, 403, 'Admin access required');
+      }
+
       logger.audit('waitlist_list_accessed', { userId: user.id });
 
       const limit = Math.min(Number(req.query.limit) || 50, 200);
@@ -450,14 +465,13 @@ const createTenantRouter: TenantRouterFactory = deps => {
         // Build query
         let query = db.table('tenant_waitlist_signups');
 
-        // Search filter
+        // Search filter (case-insensitive via ILIKE)
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query = query.where(function (this: any) {
-            this.whereRaw('LOWER(name) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(email) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(company) LIKE LOWER(?)', [s]);
+          query = query.where(function () {
+            this.whereILike('name', s)
+              .orWhereILike('email', s)
+              .orWhereILike('company', s);
           });
         }
 
@@ -531,20 +545,22 @@ const createTenantRouter: TenantRouterFactory = deps => {
       const search = typeof req.query.q === 'string' ? req.query.q : undefined;
 
       try {
-        let query = db.table('tenant_notes').whereNull('deleted_at');
+        let query = db
+          .table('tenant_notes')
+          .where('user_id', user.id)
+          .whereNull('deleted_at');
 
         // Filter by category
         if (category && ['personal', 'work', 'ideas'].includes(category)) {
           query = query.where('category', category);
         }
 
-        // Search filter
+        // Search filter (case-insensitive via ILIKE)
         if (search?.trim()) {
           const s = `%${search.trim()}%`;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query = query.where(function (this: any) {
-            this.whereRaw('LOWER(title) LIKE LOWER(?)', [s])
-              .orWhereRaw('LOWER(content) LIKE LOWER(?)', [s]);
+          query = query.where(function () {
+            this.whereILike('title', s)
+              .orWhereILike('content', s);
           });
         }
 
@@ -589,6 +605,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
         const note = await db
           .table('tenant_notes')
           .where({ id })
+          .where('user_id', user.id)
           .whereNull('deleted_at')
           .first();
 
@@ -692,6 +709,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
         const existing = await db
           .table('tenant_notes')
           .where({ id })
+          .where('user_id', user.id)
           .whereNull('deleted_at')
           .first();
 
@@ -763,6 +781,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
         const existing = await db
           .table('tenant_notes')
           .where({ id })
+          .where('user_id', user.id)
           .whereNull('deleted_at')
           .first();
 
