@@ -30,6 +30,50 @@ import {
 
 **⚠️ Import Restriction**: Only import from `@groundworkjs/plugin-sdk`. Importing from other `@groundworkjs/*` packages will cause build failures.
 
+## Security Utilities (February 2026)
+
+The plugin-SDK provides security utilities that tenant code **must** use:
+
+### Admin Authorization
+
+```typescript
+import { isAdmin, requireAdminAuth } from '@groundworkjs/plugin-sdk';
+
+// Check admin role in route handlers
+if (!isAdmin(user)) {
+  return sendError(res, 403, 'Admin access required');
+}
+
+// Or use as Express middleware (rejects non-admin with 403)
+router.get('/admin-data', requireAuth, requireAdminAuth, asyncHandler(async (req, res) => {
+  // Only admins reach here
+}));
+```
+
+### Resource IDs
+
+Use `crypto.randomUUID()` for all resource identifiers — never `Math.random()`:
+
+```typescript
+import { randomUUID } from 'crypto';
+
+const resourceId = randomUUID(); // ✅ Cryptographically secure
+const bad = Math.random().toString(36); // ❌ Predictable, insecure
+```
+
+### Query Safety
+
+Tenant code **must** use parameterized queries only. Raw SQL methods (`.whereRaw()`, `.joinRaw()`, `.orderByRaw()`, etc.) are blocked by an ES6 Proxy on the QueryBuilder. Attempting to call them will throw an error.
+
+```typescript
+// ✅ Parameterized (safe)
+await db.table('tenant_posts').where('status', 'published');
+await db.table('tenant_posts').whereILike('title', '%search%');
+
+// ❌ Blocked by proxy — throws error
+await db.table('tenant_posts').whereRaw('status = ?', ['published']);
+```
+
 ## Project Structure
 
 ```
