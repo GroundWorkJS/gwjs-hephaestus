@@ -104,7 +104,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
 
       try {
         // Generate a secure ID
-        const id = `contact_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const id = `contact_${Date.now()}_${crypto.randomUUID().slice(0, 9)}`;
 
         // Sanitize inputs (trim and limit length)
         const sanitizedData = {
@@ -394,7 +394,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
         }
 
         // Generate a secure ID
-        const id = `waitlist_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const id = `waitlist_${Date.now()}_${crypto.randomUUID().slice(0, 9)}`;
 
         // Sanitize inputs (trim and limit length)
         const sanitizedData = {
@@ -656,7 +656,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
         category && validCategories.includes(category) ? category : 'personal';
 
       try {
-        const id = `note_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const id = `note_${Date.now()}_${crypto.randomUUID().slice(0, 9)}`;
 
         const noteData = {
           id,
@@ -821,16 +821,7 @@ const createTenantRouter: TenantRouterFactory = deps => {
   //   }
   // }));
 
-  // ============================================================================
-  // Echo endpoint (for testing)
-  // ============================================================================
-
-  r.post(
-    '/echo',
-    (req: Request<unknown, unknown, JSONValue>, res: Response) => {
-      sendSuccess(res, { received: req.body });
-    },
-  );
+  // 3E.7: Echo endpoint removed (reflected untrusted input)
 
   logger.info('Tenant router initialized successfully');
   return r;
