@@ -16,7 +16,7 @@ declare global {
       failedLoginAttempts?: number;
       isActive?: boolean;
       isVerified?: boolean;
-      password?: string;
+      // 3E.8: password intentionally excluded from Express User type
       avatarUrl?: string;
     }
   }
