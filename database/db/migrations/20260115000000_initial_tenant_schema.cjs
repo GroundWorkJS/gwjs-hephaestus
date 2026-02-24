@@ -9,8 +9,8 @@
  * at the database level.
  *
  * Tables created:
- * - tenant_contact_submissions (contact form submissions)
- * - tenant_waitlist_signups (waitlist/newsletter signups)
+ * - tenant_contact_submissions (DROPPED in 20260221 migration - replaced by platform inbox)
+ * - tenant_waitlist_signups (DROPPED in 20260221 migration - replaced by platform inbox)
  * - tenant_notes (notes demo - SDK example)
  *
  * Naming Convention:
