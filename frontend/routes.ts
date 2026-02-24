@@ -21,7 +21,4 @@ export const additivePages: TenantRouteMap = {
   '/home': 'HomePage',
   '/hello': 'HelloPage',
   '/taco': 'TacoPage',
-
-  // Tenant-specific admin (not platform admin)
-  '/inbox': 'AdminMessagesPage',
 };
