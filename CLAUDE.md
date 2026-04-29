@@ -12,7 +12,7 @@ The platform that runs this tenant code now provides:
 - **GraphQL hardening**: depth (6) + complexity (1000) limits, plus rate limiting on `/graphql`.
 - **Per-tenant Docker network isolation**: `gwjs-net-${INSTANCE}` prevents lateral movement.
 
-**Known limitation**: SSH credential keys on the credential server are not yet GPG-encrypted at rest (tracked in platform `MASTER_REMEDIATION_PLAN.md`). No tenant action required.
+**Known limitation**: ~~SSH credential keys on the credential server are not yet GPG-encrypted at rest~~ — RESOLVED 2026-04-29: SSH private keys on `nyx1.gwjs.io:/opt/gwjs-credentials/ssh/` are now GPG-encrypted (RSA-4096) with on-the-fly decryption via the `fetch-credential` helper. No tenant action required.
 
 See platform `docs/reference/SECURITY_LIMITATIONS.md` (platform staff only).
 
