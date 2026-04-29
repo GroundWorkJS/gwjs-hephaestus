@@ -4,6 +4,18 @@
 
 > Your workspace for customizing and extending GroundWorkJS with custom pages, APIs, and business logic.
 
+## Workspace Collective
+
+This repo is one of **five interconnected GroundWorkJS repos** in the same VS Code workspace. Always read [`../WORKSPACE.md`](../WORKSPACE.md) first — it documents how they fit together and which neighbors to cross-check.
+
+**This repo's role**: Default tenant customization. Reference implementation for tenant developers. Consumes `@groundworkjs/plugin-sdk` from `gwjs-behemoth`. Cloned by `gwjs-do-infra/build-with-tenant.sh` on the VPS during platform builds.
+
+**Cross-check before merging changes here**:
+- New routes → must not conflict with `gwjs-behemoth/scripts/validate-tenant-routes.mjs` blacklist (validation runs at deploy time in `gwjs-infra-management` AND on VPS)
+- New imports → must only reference `@groundworkjs/plugin-sdk` (validated by `gwjs-behemoth/scripts/validate-tenant-imports.mjs`)
+- Migrations → `tenant_` prefix only, `tenant_ext` schema only (DB user permissions enforced by `gwjs-do-infra/configure_app.sh`)
+- SDK API usage → may break if `gwjs-behemoth` plugin-SDK contract changes; pin to a platform tag for stability
+
 ## ⚠️ Platform Security Status (2026-04-29)
 
 The platform that runs this tenant code now provides:
