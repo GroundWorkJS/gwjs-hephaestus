@@ -1,6 +1,21 @@
 # CLAUDE.md - GroundWorkJS Tenant Customization
 
+**Last verified**: 2026-04-29
+
 > Your workspace for customizing and extending GroundWorkJS with custom pages, APIs, and business logic.
+
+## ⚠️ Platform Security Status (2026-04-29)
+
+The platform that runs this tenant code now provides:
+- **isolated-vm sandbox** (replaced VM2): tenant code runs in V8 isolates with 128MB memory + 30s execution timeout.
+- **QueryBuilder Proxy**: `TenantDatabase` blocks raw SQL methods (`raw`, `whereRaw`, `joinRaw`, etc.) at runtime.
+- **GraphQL hardening**: depth (6) + complexity (1000) limits, plus rate limiting on `/graphql`.
+- **Per-tenant Docker network isolation**: `gwjs-net-${INSTANCE}` prevents lateral movement.
+
+**Known limitation**: SSH credential keys on the credential server are not yet GPG-encrypted at rest (tracked in platform `MASTER_REMEDIATION_PLAN.md`). No tenant action required.
+
+See platform `docs/reference/SECURITY_LIMITATIONS.md` (platform staff only).
+
 
 ## What This Repo Is
 
