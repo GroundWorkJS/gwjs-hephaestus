@@ -8,7 +8,7 @@ import {
   requireAuth,
 } from '@groundworkjs/plugin-sdk';
 import type { Request, Response } from 'express';
-import { Router as ExpressRouter } from 'express';
+import { Router } from 'express';
 
 type JSONPrimitive = string | number | boolean | null;
 type JSONValue = JSONPrimitive | JSONValue[] | { [k: string]: JSONValue };
@@ -24,7 +24,7 @@ type JSONValue = JSONPrimitive | JSONValue[] | { [k: string]: JSONValue };
  */
 const createTenantRouter: TenantRouterFactory = deps => {
   const { db, logger, requireAuth: requireAuthMiddleware } = deps;
-  const r = ExpressRouter();
+  const r = Router();
 
   logger.info('Initializing tenant router');
 
@@ -35,8 +35,6 @@ const createTenantRouter: TenantRouterFactory = deps => {
   r.get('/hello', (_req: Request, res: Response) => {
     sendSuccess(res, {
       ok: true,
-      tenant: process.env.TENANT_INSTANCE ?? 'dev',
-      state: process.env.TENANT_STATE ?? 'active',
       note: 'tenant router is mounted ✔',
     });
   });
@@ -122,7 +120,17 @@ const createTenantRouter: TenantRouterFactory = deps => {
           .orderBy('created_at', 'desc')
           .limit(limit)
           .offset(offset)
-          .select('*');
+          .select(
+            'id',
+            'title',
+            'content',
+            'category',
+            'user_id',
+            'is_pinned',
+            'tags',
+            'created_at',
+            'updated_at',
+          );
 
         sendSuccess(res, { rows, total, limit, offset });
       } catch (err) {

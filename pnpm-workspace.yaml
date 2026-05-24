@@ -1,0 +1,26 @@
+allowBuilds:
+  sharp: set this to true or false
+
+onlyBuiltDependencies:
+  - sharp
+
+# These MUST match gwjs-behemoth/pnpm-workspace.yaml overrides exactly.
+# They keep the tenant's resolved React/MUI/types identical to what the
+# platform's plugin-sdk was built against — otherwise the tenant compiles
+# against a different ReactNode definition and every MUI component fails
+# with TS2786.
+overrides:
+  react: 19.2.6
+  react-dom: 19.2.6
+  '@types/react': 19.2.15
+  '@types/react-dom': 19.2.3
+  '@emotion/react': 11.14.0
+  '@emotion/styled': 11.14.0
+  '@mui/material': 7.3.11
+  '@mui/icons-material': 7.3.11
+  '@mui/system': 7.3.11
+  '@mui/utils': 7.3.11
+  '@mui/private-theming': 7.3.11
+  '@mui/styled-engine': 7.3.10
+  '@mui/types': 7.4.12
+  next: 16.2.6

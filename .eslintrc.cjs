@@ -36,8 +36,8 @@ module.exports = {
               },
               {
                 name: '@groundworkjs/db',
-                importNames: ['default', 'client', 'db'],
-                message: 'Use { tenantDb } from @groundworkjs/db.',
+                message:
+                  '@groundworkjs/db is a platform-internal package. Use TenantDatabase from @groundworkjs/plugin-sdk instead.',
               },
             ],
             patterns: [
@@ -57,7 +57,22 @@ module.exports = {
             ],
           },
         ],
-
+        // Disallow select('*') — all queries must use explicit column lists to
+        // prevent accidentally exposing future columns or internal fields.
+        'no-restricted-syntax': [
+          'warn',
+          {
+            selector:
+              "CallExpression[callee.property.name='select'][arguments.0.type='Literal'][arguments.0.value='*']",
+            message:
+              "Avoid .select('*') — use an explicit column list to prevent unintended data exposure.",
+          },
+          {
+            selector: "MemberExpression[object.name='process'][property.name='env']",
+            message:
+              'Direct process.env access is not allowed in tenant code. Platform secrets are readable this way. Use configuration values provided by @groundworkjs/plugin-sdk instead.',
+          },
+        ],
         // Let ESLint treat peer deps as valid (so it won’t yell about express)
         'import/no-extraneous-dependencies': [
           'error',
