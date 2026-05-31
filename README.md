@@ -402,11 +402,10 @@ const router: TenantRouterFactory = (deps) => {
   // ✅ Count records
   const totalPosts = await db.count('tenant_posts');
 
-  // ✅ Raw SQL (custom tables only)
-  const result = await db.raw(
-    'SELECT * FROM tenant_posts WHERE user_id = ?',
-    [userId]
-  );
+  // ✅ Filtered query with the query builder
+  const userPosts = await db.table('tenant_posts')
+    .where('user_id', userId)
+    .select('*');
 };
 ```
 
@@ -645,7 +644,7 @@ import type { TenantDependencies } from '@groundworkjs/plugin-sdk';
 **What happened:** The deployment system found an issue with your code.
 
 **The fix:**
-1. Check the deployment logs in the platform UI
+1. Check deployment logs from your deployment process or CI output
 2. Common issues:
    - Build errors (run `pnpm build` locally first)
    - Migration errors (test with `pnpm db:migrate` locally)
@@ -665,9 +664,6 @@ interface TenantDatabase {
 
   // Count records
   count(tableName: string): Promise<number>;
-
-  // Execute raw SQL
-  raw(sql: string, bindings?: any[]): Promise<any>;
 
   // Check availability
   isAvailable: boolean;
