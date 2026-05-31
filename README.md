@@ -882,6 +882,7 @@ Your first point of contact! They can help with:
 - 🌐 [GroundWorkJS Website](https://groundworkjs.com/)
 - 📖 [Full Documentation](https://groundworkjs.com/docs)
 - 💬 [Support Center](https://groundworkjs.com/support)
+- 🧭 [Tenant Doc Policy](docs/TENANT_DOC_POLICY.md)
 
 ### Before Asking for Help
 1. ✅ Check the [Common Issues](#-common-issues--solutions) section above
